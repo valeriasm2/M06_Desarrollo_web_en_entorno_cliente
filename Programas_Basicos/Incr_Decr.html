@@ -1,0 +1,54 @@
+<!-- Dame una estrcutura de html, con JavaScript. 
+Debes de seguir estas instrucciones; 
+- Tengo dispongo de 2botones donde uno es de "INCREMENTAR" y el otro "DESINCREMENTAR",
+es decir al darle al primer botón se irá sumando de 1 en uno y el otro bootn restará el numero.
+- Los numeros están dentro de los mismos botones independientes un botón del otro -->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Incrementar y Desincrementar</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 50px;
+    }
+    button {
+      font-size: 20px;
+      padding: 10px 20px;
+      margin: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <button id="incrementar">0</button>
+  <button id="desincrementar">0</button>
+
+  <script>
+    // Obtener botones
+    const btnIncrementar = document.getElementById('incrementar');
+    const btnDesincrementar = document.getElementById('desincrementar');
+
+    // Inicializar contadores
+    let countInc = 0;
+    let countDec = 0;
+
+    // Evento para incrementar
+    btnIncrementar.addEventListener('click', () => {
+      countInc++;
+      btnIncrementar.textContent = countInc;
+    });
+
+    // Evento para desincrementar
+    btnDesincrementar.addEventListener('click', () => {
+      countDec--;
+      btnDesincrementar.textContent = countDec;
+    });
+  </script>
+
+</body>
+</html>
