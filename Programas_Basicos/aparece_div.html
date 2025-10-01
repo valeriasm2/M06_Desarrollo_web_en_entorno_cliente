@@ -1,0 +1,43 @@
+<!--necesito un programa html con js que, 
+creo un div unto un boton 
+y al clickar el boton el div aparece y desaparece-->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mostrar / Ocultar Div</title>
+    <style>
+        #miDiv {
+            width: 200px;
+            height: 100px;
+            background-color: lightblue;
+            display: none; /* Inicialmente oculto */
+            margin-top: 10px;
+            text-align: center;
+            line-height: 100px;
+            font-weight: bold;
+        }
+        button {
+            padding: 8px 16px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <button onclick="toggleDiv()">Mostrar / Ocultar Div</button>
+    <div id="miDiv">me gustas :3.</div>
+
+    <script>
+        function toggleDiv() {
+            const div = document.getElementById("miDiv");
+            if (div.style.display === "none") {
+                div.style.display = "block";
+            } else {
+                div.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>
