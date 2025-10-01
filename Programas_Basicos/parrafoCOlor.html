@@ -22,12 +22,17 @@ cambie el color-->
 <body>
     <p id="miParrafo">¡Este es un párrafo que cambiará de color!</p>
     <button onclick="cambiarColor()">Cambiar Color</button>
-
+    
     <script>
+        const colores = ["red", "blue", "green", "orange", "purple", "pink", "brown"];
+        let indice = 0;
+
         function cambiarColor() {
-            const colores = ["red", "blue", "green", "orange", "purple", "pink", "brown"];
-            const colorAleatorio = colores[Math.floor(Math.random() * colores.length)];
-            document.getElementById("miParrafo").style.color = colorAleatorio;
+            document.getElementById("miParrafo").style.color = colores[indice];
+            indice++;
+            if (indice >= colores.length) {
+                indice = 0;
+            }
         }
     </script>
 </body>
