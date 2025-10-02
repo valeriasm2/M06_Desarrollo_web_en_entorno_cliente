@@ -1,0 +1,25 @@
+<!-- Debe mostrar por pantalla la utlima tecla pulsada -->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Detector Teclas</title>
+    </head>
+    <body>
+        <h1>Detector Teclas</h1>
+        <div id="pantalla" style="font-size: 2em; margin: 20px;">Presiona una
+            tecla</div>
+
+        <script>
+        const pantalla = document.getElementById("pantalla");
+        document.addEventListener("keydown", function(event) {
+        pantalla.innerText = `Tecla presionada: ${event.key}`;
+        pantalla.style.backgroundColor = "#f0f8ff";
+        });
+        document.addEventListener("keyup", function() {
+        pantalla.style.backgroundColor = "transparent";
+        });
+    </script>
+    </body>
+</html>
