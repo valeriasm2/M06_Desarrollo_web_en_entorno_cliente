@@ -1,0 +1,30 @@
+<!-- Resaltador de párrafos -->
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Resaltador de Párrafos</title>
+        <style>
+        .resaltado {
+            background-color: rgb(171, 229, 252);
+        }
+    </style>
+    </head>
+    <body>
+        <p>Hola</p>
+        <p>¿Cómo estás?</p>
+        <p>Adiós</p>
+
+        <button onclick="asignarResaltado()">Resaltar</button>
+
+        <script>
+        function asignarResaltado() {
+            let parrafos = document.getElementsByTagName("p");
+            for (let i = 0; i < parrafos.length; i++) {
+                parrafos[i].classList.add("resaltado");
+            }
+        }
+    </script>
+    </body>
+</html>
