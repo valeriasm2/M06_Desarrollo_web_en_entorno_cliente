@@ -1,20 +1,53 @@
-<!--
-Crea una lista con 6 elementos.
-Encima de la lista debe haber un input y un botón.
-
-El input solo debe aceptar valores numéricos del 1 al 6.
-Cuando se introduce un número en el input y se pulsa el botón, deben desaparecer de la lista tantos elementos como el número indicado.
-Si se vuelve a pulsar el botón, los elementos que habían desaparecido deben volver a mostrarse.
--->
-
+<!-- Crea una lista con 6 elementos.
+ Encima de la lista debe haber un input y un botón.
+ 
+ El input solo debe aceptar valores numéricos del 1 al 6.
+ Cuando se introduce un número en el input y se pulsa el botón,
+ deben desaparecer de la lista tantos elementos como el número indicado.
+ Si se vuelve a pulsar el botón, los elementos que habían desaparecido deben volver a mostrarse. -->
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ocultar elementos</title>
+    <style>
+      li {
+        display: list-item;
+        margin: 5px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <input type="number" id="cantidad" min="1" max="6" />
+    <button onclick="funBoton()">Pruebame</button>
+
+    <ul id="lista">
+      <li>Elemento 1</li>
+      <li>Elemento 2</li>
+      <li>Elemento 3</li>
+      <li>Elemento 4</li>
+      <li>Elemento 5</li>
+      <li>Elemento 6</li>
+    </ul>
+
+    <script>
+      let ocultos = false;
+
+      function funBoton() {
+        const cantidad = parseInt(document.getElementById("cantidad").value);
+        const items = document.querySelectorAll("#lista li");
+
+        if (!ocultos) {
+          for (let i = 0; i < cantidad; i++) {
+            items[i].style.display = "none";
+          }
+          ocultos = true;
+        } else {
+          items.forEach(li => li.style.display = "list-item");
+          ocultos = false;
+        }
+      }
+    </script>
+  </body>
 </html>
