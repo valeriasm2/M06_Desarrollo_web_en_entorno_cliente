@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Semáforo</title>
+  <style>
+    body {
+      text-align: center;
+      font-family: Arial, sans-serif;
+      margin-top: 50px;
+    }
+
+    #luz {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background-color: gray;
+      margin: 20px auto;
+      border: 2px solid black;
+    }
+
+    button {
+      padding: 10px 15px;
+      margin: 5px;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      cursor: pointer;
+    }
+
+    .rojo { background-color: red; }
+    .amarillo { background-color: orange; }
+    .verde { background-color: green; }
+  </style>
+</head>
+<body>
+  <h1>Semáforo</h1>
+
+  <div id="luz"></div>
+
+  <button class="rojo" onclick="encender('red')">Rojo</button>
+  <button class="amarillo" onclick="encender('yellow')">Amarillo</button>
+  <button class="verde" onclick="encender('green')">Verde</button>
+
+  <script>
+    function encender(color) {
+      document.getElementById("luz").style.backgroundColor = color;
+    }
+  </script>
+</body>
+</html>
