@@ -1,0 +1,121 @@
+<!-- calculadora con dos inputs, suma y resta y muestra el resultado por pantalla, parseInt. Con estilos y le tienes que dar click a los botones para escribirlo y funciona. -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora</title>
+    <style>
+        input {
+            margin: 10px;
+            width: 40px;
+            height: 40px;
+        }
+
+        input#operations {
+            width: 230px;
+        }
+
+        input#enter {
+            width: 170px;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            align-items: center;
+        }
+
+        .contenedorNumeros {
+            background-color: #d0d9a0;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="contenedorNumeros">
+        <input type="text" readonly id="operations">
+        <div class="separadorNumerosFila">
+            <input type="button" value="7">
+            <input type="button" value="8">
+            <input type="button" value="9">
+            <input type="button" value="+">
+        </div>
+        <div class="separadorNumerosFila">
+            <input type="button" value="4">
+            <input type="button" value="5">
+            <input type="button" value="6">
+            <input type="button" value="-">
+        </div>
+        <div class="separadorNumerosFila">
+            <input type="button" value="1">
+            <input type="button" value="2">
+            <input type="button" value="3">
+            <input type="button" value="del">
+        </div>
+        <div class="separadorNumerosFila">
+            <input type="button" value="0">
+            <input type="button" id="enter" value="enter">
+
+
+        </div>
+
+
+    </div>
+    <script>
+        const esNumero = caracter => !isNaN(caracter);
+        function getFirstOperand(results){
+            let operatorIndex = results.value.indexOf("+");
+            if (operatorIndex === -1){
+                operatorIndex = results.value.indexOf("-");
+            }
+            return results.value.substring(0,operatorIndex);
+        }
+        function getSecondOperand(results){
+            let operatorIndex = results.value.indexOf("+");
+            if (operatorIndex === -1){
+                operatorIndex = results.value.indexOf("-");
+            }
+            return results.value.substring(operatorIndex+1,results.length);
+        }
+
+        function getOperand() {
+            
+        }
+
+        function getOperator(results){
+            let operatorIndex = results.value.indexOf("+");
+            if (operatorIndex === -1){
+                operatorIndex = results.value.indexOf("-");
+            }
+            return results.value.substring(operatorIndex,1);
+        }
+
+        const clickAllButtons = document.querySelectorAll(".separadorNumerosFila input[type='button']");
+        const results = document.getElementById("operations");
+        clickAllButtons.forEach((button) => {
+            button.addEventListener("click", (event) => {
+                if (button.value === "enter") {
+                    calculateResult();
+                } else{
+                    results.value += event.target.value;
+                }
+
+            })
+        });
+
+        const calculateResult = () => {
+            const firstOperand = getFirstOperand(results);
+            const secondOperand = getSecondOperand(results);
+            const operator = getOperator(results);
+            return getResult(firstOperand,secondOperand,operator);
+        }
+    </script>
+
+</body>
+
+</html>

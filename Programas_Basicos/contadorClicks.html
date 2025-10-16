@@ -1,0 +1,67 @@
+<!--boton "clickame" que solo es clickable durante los 5egundos despues se desactiva
+boton "empieza" -> se activa el contador de 5segundos y se hablita el boton "clickame"
+y saldrá un contador de clicks hechos , al acabar el tiempo saldra el resultado debajo -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            margin-top: 50px;
+        }
+
+        button {
+            padding: 10px 15px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            background-color: #4CAF50;
+        }
+
+        button:disabled {
+            background-color: gray;
+        }
+
+        #result {
+            font-size: 24px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>contador de clicks</h1>
+    <button id="sttartBtn">Empieza</button>
+    <button id="clickBtn" disabled>Clickame</button>
+    <p id="result">0</p>
+
+    <script>
+        let clickBtn = document.getElementById("clickBtn");
+        let startBtn = document.getElementById("sttartBtn");
+        let result = document.getElementById("result");
+
+        startBtn.addEventListener("click", function() {
+            clicks = 0;
+            result.textContent = clicks;
+            clickBtn.disabled = false;
+            startBtn.disabled = true;
+
+            timer = setTimeout(function() {
+                clickBtn.disabled = true;
+                startBtn.disabled = false;
+            }, 5000);
+        });
+
+        clickBtn.addEventListener("click", function() {
+            clicks++;
+            result.textContent = clicks;
+        });
+    </script>
+    
+</body>
+</html>
