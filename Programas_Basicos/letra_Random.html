@@ -4,37 +4,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Juego de Letras Simple</title>
-    <style>
-        #letraRandom {
-            font-size: 48px;
-            margin-bottom: 20px;
-        }
-
-        #inputLetra {
-            font-size: 24px;
-            width: 50px;
-            text-align: center;
-        }
-
-        #resultado {
-            font-size: 24px;
-            margin-top: 20px;
-        }
-    </style>
+    <title>Juego de Letras Muy Simple</title>
 </head>
 
 <body>
 
     <h1>Juego de Letras</h1>
-    <p id="letraRandom"></p>
-    <input id="inputLetra" maxlength="1" style="text-transform: uppercase;">
-    <p id="resultado"></p>
+    <p id="letraRandom" style="font-size:48px;"></p>
+    <input id="inputLetra" maxlength="1" style="text-transform:uppercase; font-size:24px;">
+    <p id="resultado" style="font-size:24px;"></p>
 
     <script>
         const letras = 'GFTDLJUSF';
-        let contador = 0;
-        let resultado = '';
+        let contador = 0, resultado = '';
 
         function AddEventListener() {
             if (contador >= 5) {
@@ -43,14 +25,12 @@
                 return;
             }
 
-            const letraActual = letras[Math.floor(Math.random() * letras.length)];
-            document.getElementById('letraRandom').textContent = letraActual;
-            const input = document.getElementById('inputLetra');
-            input.value = '';
-            input.focus();
+            const letra = letras[Math.floor(Math.random() * letras.length)];
+            document.getElementById('letraRandom').textContent = letra;
+            document.getElementById('inputLetra').value = '';
 
             const timeout = setTimeout(() => {
-                resultado += `<span style="color: red;">${letraActual}</span> `;
+                resultado += `<span style="color:red">${letra}</span> `;
                 document.getElementById('resultado').innerHTML = resultado;
                 contador++;
                 AddEventListener();
@@ -58,14 +38,14 @@
 
             const handler = () => {
                 clearTimeout(timeout);
-                resultado += `<span style="color:${input.value.toUpperCase() === letraActual ? 'green' : 'red'}">${letraActual}</span> `;
+                resultado += `<span style="color:${document.getElementById('inputLetra').value.toUpperCase() === letra ? 'green' : 'red'}">${letra}</span> `;
                 document.getElementById('resultado').innerHTML = resultado;
                 contador++;
-                input.removeEventListener('input', handler);
+                document.getElementById('inputLetra').removeEventListener('input', handler);
                 AddEventListener();
-            };
+            }
 
-            input.addEventListener('input', handler);
+            document.getElementById('inputLetra').addEventListener('input', handler);
         }
 
         AddEventListener();
