@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista Editable Simple</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        .input-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        #input {
+            flex: 1;
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+        }
+        #btnAdd {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        #btnAdd:hover {
+            background-color: #45a049;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            margin-bottom: 8px;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+            border-left: 4px solid #4CAF50;
+        }
+        li {
+            flex: 1;
+            margin-right: 10px;
+        }
+        li.item-texto {
+            display: flex;
+        }
+        li button {
+            background: none;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            padding: 5px;
+            transition: transform 0.2s;
+        }
+        li button:hover {
+            transform: scale(1.2);
+        }
+    </style>
+</head>
+<body>
+    <h1>Lista Editable</h1>
+
+    <div class="input-container">
+        <input type="text" id="input" placeholder="Añade un elemento a la lista">
+        <button id="btnAdd">Añadir</button>
+    </div>
+
+    <ul id="listaItems">
+        <li class="item-texto">Elemento 1 <button class="editar">✏️</button> <button class="eliminar">❌</button></li>
+        <li class="item-texto">Elemento 2 <button class="editar">✏️</button> <button class="eliminar">❌</button></li>
+        <li class="item-texto">Elemento 3 <button class="editar">✏️</button> <button class="eliminar">❌</button></li>
+    </ul>
+
+    <script>
+        const input = document.getElementById("input");
+        const btnAdd = document.getElementById("btnAdd");
+        const lista = document.getElementById("listaItems");
+        let itemEnEdicion = null;
+
+        function gestionarLista(accion, elemento = null) {
+            const texto = input.value.trim();
+
+            if (accion === "añadir") {
+                if (!texto) return;
+
+                if (itemEnEdicion) {
+                    const boton = itemEnEdicion.querySelector(".editar");
+                    itemEnEdicion.childNodes[0].textContent = texto + " ";
+                    itemEnEdicion = null;
+                } else {
+                    const li = document.createElement("li");
+                    li.className = "item-texto";
+                    li.innerHTML = `${texto} <button class="editar">✏️</button> <button class="eliminar">❌</button>`;
+                    lista.appendChild(li);
+                }
+                input.value = "";
+                input.focus();
+            }
+
+            if (accion === "editar") {
+                const li = elemento.closest("li");
+                input.value = li.childNodes[0].textContent.trim();
+                input.focus();
+                itemEnEdicion = li;
+            }
+
+            if (accion === "eliminar") {
+                const li = elemento.closest("li");
+                li.remove();
+                if (itemEnEdicion === li) {
+                    itemEnEdicion = null;
+                    input.value = "";
+                }
+            }
+        }
+
+        btnAdd.addEventListener("click", () => gestionarLista("añadir"));
+        input.addEventListener("keypress", (e) => {
+            if (e.key === "Enter") gestionarLista("añadir");
+        });
+
+        lista.addEventListener("click", (e) => {
+            if (e.target.classList.contains("editar")) {
+                gestionarLista("editar", e.target);
+            }
+            if (e.target.classList.contains("eliminar")) {
+                gestionarLista("eliminar", e.target);
+            }
+        });
+    </script>
+</body>
+</html>
