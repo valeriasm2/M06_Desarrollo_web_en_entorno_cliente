@@ -3,6 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <title>LOGRO 5 – El Pensador Lógico</title>
+<style>
+  body { font-family: Arial, sans-serif; line-height: 1.5; padding: 20px; }
+  h1 { margin-bottom: 0; }
+  hr { margin: 20px 0; }
+  .box { margin: 8px 0; padding: 8px; border: 1px solid #ddd; border-radius: 6px; background: #fafafa; }
+  input[type="text"], input[type="number"] { padding: 6px; border-radius: 4px; border: 1px solid #ccc; }
+  button { padding: 6px 10px; border-radius: 4px; border: 1px solid #888; background: #f0f0f0; cursor: pointer; }
+  button:active { transform: translateY(1px); }
+</style>
 </head>
 
 <body>
@@ -18,10 +27,14 @@
    ↓
 Usuario ingresa número
    ↓
-¿Número > 10?
+¿Número &gt; 10?
    ↓ Sí         ↓ No
 "Correcto"   "Incorrecto"
 -->
+
+<div class="box">
+  <strong>Nota:</strong> Diagrama textual en comentarios; puedes dibujarlo con herramientas (draw.io, papel...)
+</div>
 
 <hr>
 
@@ -38,6 +51,8 @@ Usuario ingresa número
 6. El navegador actualiza la pantalla.
 -->
 
+<div class="box">Explicación breve incluida arriba.</div>
+
 <hr>
 
 <h2>Ejercicio 3</h2>
@@ -51,6 +66,8 @@ c) Ejecutar algo si se cumple condición → if
 d) Esperar la acción del usuario → evento (addEventListener)
 -->
 
+<div class="box">Respuestas: a) for, b) switch, c) if, d) evento.</div>
+
 <hr>
 
 <h2>Ejercicio 4</h2>
@@ -61,12 +78,13 @@ d) Esperar la acción del usuario → evento (addEventListener)
 Ejemplo: Cuando el usuario presiona Enter y queremos validar los datos antes de que se envíe el formulario automáticamente.
 -->
 
+<div class="box">Usar <code>e.preventDefault()</code> para evitar envío automático y validar primero.</div>
+
 <hr>
 
 <h2>Ejercicio 5</h2>
-<p><strong>Enunciado:</strong> Explica paso a paso qué ocurre en este código:
-
-setInterval(() => {contador++}, 1000);</p>
+<p><strong>Enunciado:</strong> Explica paso a paso qué ocurre en este código:</p>
+<pre>setInterval(() => {contador++}, 1000);</pre>
 
 <!-- SOLUCIÓN -->
 <!--
@@ -75,6 +93,156 @@ setInterval(() => {contador++}, 1000);</p>
 3. En cada ejecución suma 1.
 4. Esto continúa indefinidamente si no se usa clearInterval.
 -->
+
+<div class="box">Recuerda que para detenerlo usamos <code>clearInterval(id)</code> con el id devuelto por setInterval.</div>
+
+<hr>
+
+<!-- =================== EJERCICIOS NUEVOS: 6 - 10 =================== -->
+
+<h2>Ejercicio 6</h2>
+<p><strong>Enunciado:</strong> Comprueba si un número introducido es par o impar (usa if/else).</p>
+
+<p>Introduce un número y pulsa "Comprobar".</p>
+<input id="evenOddInput" type="number" placeholder="Número">
+<button id="evenOddBtn">Comprobar</button>
+<p id="evenOddMsg"></p>
+
+<script>
+document.getElementById("evenOddBtn").addEventListener("click", () => {
+  const val = Number(document.getElementById("evenOddInput").value);
+  const msg = document.getElementById("evenOddMsg");
+  if (Number.isNaN(val)) {
+    msg.innerText = "Introduce un número válido.";
+    return;
+  }
+  if (val % 2 === 0) {
+    msg.innerText = "El número es PAR.";
+  } else {
+    msg.innerText = "El número es IMPAR.";
+  }
+});
+</script>
+
+<hr>
+
+<h2>Ejercicio 7</h2>
+<p><strong>Enunciado:</strong> Valida un formulario pequeño y evita el envío (usa <code>preventDefault()</code>).</p>
+
+<form id="miniForm">
+  <label>Nombre: <input id="nameField" type="text" required></label>
+  <button type="submit">Enviar</button>
+</form>
+<p id="formMsg"></p>
+
+<script>
+document.getElementById("miniForm").addEventListener("submit", function (e) {
+  e.preventDefault(); // evitamos envío real para validar primero
+  const name = document.getElementById("nameField").value.trim();
+  const p = document.getElementById("formMsg");
+  if (name.length < 3) {
+    p.innerText = "El nombre debe tener al menos 3 caracteres.";
+  } else {
+    p.innerText = "Formulario válido. (Aquí podrías enviar con fetch o permitir envío)";
+    // Si quisiéramos enviar después de validar: this.submit();
+  }
+});
+</script>
+
+<hr>
+
+<h2>Ejercicio 8</h2>
+<p><strong>Enunciado:</strong> Usar <code>switch</code> para mostrar el día de la semana a partir de un número (1-7).</p>
+
+<input id="dayNum" type="number" min="1" max="7" placeholder="1-7">
+<button id="dayBtn">Mostrar día</button>
+<p id="dayMsg"></p>
+
+<script>
+document.getElementById("dayBtn").addEventListener("click", () => {
+  const n = Number(document.getElementById("dayNum").value);
+  let texto;
+  switch (n) {
+    case 1: texto = "Lunes"; break;
+    case 2: texto = "Martes"; break;
+    case 3: texto = "Miércoles"; break;
+    case 4: texto = "Jueves"; break;
+    case 5: texto = "Viernes"; break;
+    case 6: texto = "Sábado"; break;
+    case 7: texto = "Domingo"; break;
+    default: texto = "Introduce un número entre 1 y 7.";
+  }
+  document.getElementById("dayMsg").innerText = texto;
+});
+</script>
+
+<hr>
+
+<h2>Ejercicio 9</h2>
+<p><strong>Enunciado:</strong> Demostración de <code>setInterval</code> con botones para iniciar y detener el contador.</p>
+
+<div>
+  <button id="startCounter">Iniciar contador</button>
+  <button id="stopCounter">Detener contador</button>
+  <span id="counterDisplay">0</span>
+</div>
+
+<script>
+let contador = 0;
+let intervaloId = null;
+const disp = document.getElementById("counterDisplay");
+
+document.getElementById("startCounter").addEventListener("click", () => {
+  if (intervaloId !== null) return; // ya está en marcha
+  intervaloId = setInterval(() => {
+    contador++;
+    disp.innerText = contador;
+  }, 1000);
+});
+
+document.getElementById("stopCounter").addEventListener("click", () => {
+  if (intervaloId !== null) {
+    clearInterval(intervaloId);
+    intervaloId = null;
+  }
+});
+</script>
+
+<hr>
+
+<h2>Ejercicio 10</h2>
+<p><strong>Enunciado:</strong> Usa operadores lógicos (AND / OR) para decidir si un acceso está permitido: edad >= 18 <strong>y</strong> tiene entrada válida <em>o</em> es VIP.</p>
+
+<label>Edad: <input id="age" type="number" min="0" value="17"></label>
+<label>Entrada válida: <input id="hasTicket" type="checkbox"></label>
+<label>VIP: <input id="isVip" type="checkbox"></label>
+<button id="accessBtn">Comprobar acceso</button>
+<p id="accessMsg"></p>
+
+<script>
+document.getElementById("accessBtn").addEventListener("click", () => {
+  const age = Number(document.getElementById("age").value);
+  const hasTicket = document.getElementById("hasTicket").checked;
+  const isVip = document.getElementById("isVip").checked;
+  const msg = document.getElementById("accessMsg");
+
+  // Permitir si (edad >= 18 && tiene entrada) || es VIP
+  if ((age >= 18 && hasTicket) || isVip) {
+    msg.innerText = "Acceso permitido.";
+  } else {
+    msg.innerText = "Acceso denegado.";
+  }
+});
+</script>
+
+<hr>
+
+<p><em>Si quieres, puedo:</em></p>
+<ul>
+  <li>Agregar explicaciones paso a paso debajo de cada ejercicio.</li>
+  <li>Convertir todo en una versión con estilos y explicaciones desplegables.</li>
+  <li>Crear 5 ó 10 ejercicios más sobre estructuras de control y eventos.</li>
+</ul>
 
 </body>
 </html>
