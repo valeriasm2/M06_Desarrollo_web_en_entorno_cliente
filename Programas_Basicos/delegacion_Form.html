@@ -7,135 +7,49 @@ implementa delegacion de eventos para qe en el boton de eliminar se eliine la ta
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista Editable Delegacion</title>
+    <title>Lista Delegacion Simple</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f8fafc;
-            max-width: 430px;
-            margin: 40px auto;
-            padding: 20px;
-            border-radius: 12px;
-            border: 1px solid #d5e1e9;
-            box-shadow: 0 4px 16px rgba(50,100,150,0.08);
-        }
-        h1 {
-            text-align: center;
-            color: #2176ae;
-            font-weight: normal;
-            margin-bottom: 20px;
-        }
-        .input-container {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 16px;
-        }
-        #input {
-            flex: 1;
-            padding: 9px 12px;
-            border-radius: 5px;
-            border: 1.5px solid #b3d0ea;
-            font-size: 1rem;
-        }
-        #input:focus {
-            border-color: #2176ae;
-            outline: none;
-        }
-        #btnAdd {
-            padding: 9px 18px;
-            border-radius: 5px;
-            border: none;
-            background: #2176ae;
-            color: #fff;
-            font-weight: 500;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: background 0.18s;
-        }
-        #btnAdd:hover {
-            background: #176092;
-        }
-        ul {
-            list-style: none;
-            padding-left: 0;
-            margin: 0;
-        }
-        li {
-            display: flex;
-            align-items: center;
-            background: #fff;
-            border: 1px solid #e7e7e7;
-            border-radius: 5px;
-            padding: 10px 14px;
-            margin-bottom: 10px;
-            box-shadow: 0 1px 3px rgba(33,118,174,.03);
-        }
-        li .item-texto-text {
-            flex: 1;
-            font-size: 1rem;
-            color: #263142;
-        }
-        li button {
-            background: #ff5353;
-            border: none;
-            border-radius: 50%;
-            width: 28px;
-            height: 28px;
-            color: #fff;
-            font-size: 16px;
-            cursor: pointer;
-            margin-left: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: background 0.16s;
-        }
-        li button:hover {
-            background: #c42727;
-        }
-        @media (max-width: 500px) {
-            body { max-width: 97vw; padding: 2vw; }
-            .input-container { flex-direction: column; gap: 7px; }
-            #btnAdd { width: 100%; }
-        }
+        body { font-family: Arial, sans-serif; max-width: 400px; margin: 40px auto; }
+        input { width: 70%; padding: 6px; }
+        button { padding: 7px 13px; margin-left: 6px; }
+        ul { padding: 0; }
+        li { list-style: none; margin: 8px 0; display:flex; gap:10px; }
+        .del { background: #fd5757; color: white; border: none; border-radius: 50%; width: 26px; height: 26px; cursor: pointer;}
     </style>
 </head>
 <body>
-    <h1>Lista Editable Delegacion</h1>
-
-    <div class="input-container">
-        <input type="text" id="input" placeholder="Añade un elemento a la lista">
-        <button id="btnAdd">Añadir</button>
-    </div>
-
-    <ul id="listaItems">
-        <li><span class="item-texto-text">Elemento 1</span> <button class="eliminar" title="Eliminar">&#128465;</button></li>
-        <li><span class="item-texto-text">Elemento 2</span> <button class="eliminar" title="Eliminar">&#128465;</button></li>
-        <li><span class="item-texto-text">Elemento 3</span> <button class="eliminar" title="Eliminar">&#128465;</button></li>
+    <h2>Lista de Tareas</h2>
+    <input id="input" type="text" placeholder="Nueva tarea">
+    <button id="add">Añadir</button>
+    <ul id="lista">
+        <li>Tarea 1 <button class="del">&#128465;</button></li>
+        <li>Tarea 2 <button class="del">&#128465;</button></li>
     </ul>
-
     <script>
-        // Basico bonito, delegación solo para eliminar
+        const lista = document.getElementById('lista');
         const input = document.getElementById('input');
-        const btnAdd = document.getElementById('btnAdd');
-        const lista = document.getElementById('listaItems');
-        btnAdd.addEventListener('click', addItem);
-        input.addEventListener('keypress', e => { if(e.key === 'Enter') addItem(); });
-        lista.addEventListener('click', function(e) {
-            if (e.target.classList.contains('eliminar')) {
-                e.target.closest('li').remove();
+        const add = document.getElementById('add');
+
+        add.onclick = () => {
+            const t = input.value.trim();
+            if(t){
+                const li = document.createElement('li');
+                li.innerHTML = t + ' <button class="del">&#128465;</button>';
+                lista.appendChild(li);
+                input.value = '';
+                input.focus();
             }
-        });
-        function addItem() {
-            const val = input.value.trim();
-            if (!val) return;
-            const li = document.createElement('li');
-            li.innerHTML = `<span class="item-texto-text">${val}</span> <button class="eliminar" title="Eliminar">&#128465;</button>`;
-            lista.appendChild(li);
-            input.value = '';
-            input.focus();
-        }
+        };
+
+        input.onkeypress = e => {
+            if(e.key === 'Enter') add.onclick();
+        };
+
+        lista.onclick = e => {
+            if(e.target.classList.contains('del')) {
+                e.target.parentElement.remove();
+            }
+        };
     </script>
 </body>
 </html>
