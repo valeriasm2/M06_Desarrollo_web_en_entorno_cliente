@@ -3,46 +3,75 @@
 <head>
 <meta charset="UTF-8">
 <title>LOGRO 2 – El Verificador</title>
+<style>
+  body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.8; }
+  h1 { color: #333; }
+  h2 { color: #0056b3; margin-top: 40px; }
+  pre { background-color: #f5f5f5; padding: 15px; border-radius: 5px; overflow-x: auto; font-size: 13px; }
+  .enunciado { background-color: #e7f3ff; padding: 10px; border-left: 4px solid #0056b3; margin: 10px 0; }
+  .solucion { background-color: #fff3cd; padding: 10px; border-left: 4px solid #ffc107; margin: 10px 0; }
+  .explicacion { background-color: #d4edda; padding: 10px; border-left: 4px solid #28a745; margin: 10px 0; }
+  hr { margin: 50px 0; border: none; border-top: 2px solid #ddd; }
+</style>
 </head>
-
 <body>
+
 <h1>LOGRO 2 – El Verificador</h1>
-<p>Variables, condicionales, eventos y manipulación básica del DOM.</p>
+<p><strong>Objetivo:</strong> Variables, condicionales, eventos y manipulación básica del DOM.</p>
+<p><strong>Duración:</strong> 15–20 minutos</p>
 
-<h2>Ejercicio 1</h2>
-<p><strong>Enunciado:</strong> Escribe un programa que verifique si el usuario escribió la palabra “hola”.</p>
+<hr>
 
-<input id="texto" type="text">
-<button id="btn1">Verificar</button>
-<p id="msg1"></p>
+<h2>Ejercicio 1: Verificar Palabra</h2>
+<div class="enunciado">
+  <strong>Enunciado:</strong> Escribe un programa que verifique si el usuario escribió la palabra "hola".
+</div>
 
-<script>
-// Obtenemos elementos
+<div class="solucion">
+  <strong>SOLUCIÓN:</strong>
+  <pre>
+HTML:
+&lt;input id="texto" type="text" placeholder="Escribe algo"&gt;
+&lt;button id="btn1"&gt;Verificar&lt;/button&gt;
+&lt;p id="msg1"&gt;&lt;/p&gt;
+
+JAVASCRIPT:
 const input1 = document.getElementById("texto");
 const btn1 = document.getElementById("btn1");
 const msg1 = document.getElementById("msg1");
 
-// Evento de clic
 btn1.addEventListener("click", () => {
   const valor = input1.value;
-
-  // Condicional
+  
   if (valor === "hola") {
-    msg1.innerText = "Correcto";
+    msg1.innerText = "✅ Correcto";
+    msg1.style.color = "green";
   } else {
-    msg1.innerText = "Incorrecto";
+    msg1.innerText = "❌ Incorrecto";
+    msg1.style.color = "red";
   }
 });
-</script>
+  </pre>
+</div>
+
+<div class="explicacion">
+  <strong>Conceptos:</strong> getElementById() | addEventListener() | .value | if/else | innerText
+</div>
 
 <hr>
 
-<h2>Ejercicio 2</h2>
-<p><strong>Enunciado:</strong> Haz que un párrafo cambie entre rojo y azul al hacer clic.</p>
+<h2>Ejercicio 2: Cambiar Color al Hacer Clic</h2>
+<div class="enunciado">
+  <strong>Enunciado:</strong> Haz que un párrafo cambie entre rojo y azul al hacer clic.
+</div>
 
-<p id="colorP">Haz clic aquí para cambiar color</p>
+<div class="solucion">
+  <strong>SOLUCIÓN:</strong>
+  <pre>
+HTML:
+&lt;p id="colorP" style="cursor: pointer;"&gt;Haz clic aquí&lt;/p&gt;
 
-<script>
+JAVASCRIPT:
 const pColor = document.getElementById("colorP");
 let azul = false;
 
@@ -50,35 +79,78 @@ pColor.addEventListener("click", () => {
   azul = !azul;
   pColor.style.color = azul ? "blue" : "red";
 });
-</script>
+
+EXPLICACIÓN:
+- azul = !azul → invierte el estado (toggle)
+- ? : → operador ternario (if/else compacto)
+  </pre>
+</div>
+
+<div class="explicacion">
+  <strong>Conceptos:</strong> Variable booleana | !azul (NOT) | style.color | operador ternario
+</div>
 
 <hr>
 
-<h2>Ejercicio 3</h2>
-<p><strong>Enunciado:</strong> Determina si un usuario es mayor de edad.</p>
+<h2>Ejercicio 3: Verificar Mayor de Edad</h2>
+<div class="enunciado">
+  <strong>Enunciado:</strong> Determina si un usuario es mayor de edad.
+</div>
 
-<p id="edadMsg"></p>
+<div class="solucion">
+  <strong>SOLUCIÓN:</strong>
+  <pre>
+HTML:
+&lt;input id="inputEdad" type="number" placeholder="¿Cuántos años?"&gt;
+&lt;button id="btnEdad"&gt;Verificar&lt;/button&gt;
+&lt;p id="edadMsg"&gt;&lt;/p&gt;
 
-<script>
-let edad = 17; // ejemplo
+JAVASCRIPT:
+const inputEdad = document.getElementById("inputEdad");
+const btnEdad = document.getElementById("btnEdad");
 const edadMsg = document.getElementById("edadMsg");
 
-if (edad >= 18) {
-  edadMsg.innerText = "Es mayor de edad";
-} else {
-  edadMsg.innerText = "Es menor de edad";
-}
-</script>
+btnEdad.addEventListener("click", () => {
+  let edad = parseInt(inputEdad.value);
+  
+  if (edad >= 18) {
+    edadMsg.innerText = "✅ Eres mayor de edad";
+    edadMsg.style.color = "green";
+  } else if (edad > 0 && edad < 18) {
+    edadMsg.innerText = "❌ Eres menor de edad";
+    edadMsg.style.color = "red";
+  } else {
+    edadMsg.innerText = "⚠️ Edad no válida";
+    edadMsg.style.color = "orange";
+  }
+});
+
+EXPLICACIÓN:
+- parseInt() → convierte string a número
+- >= 18 → mayor o igual a 18
+- && → operador AND (ambas condiciones deben ser verdaderas)
+  </pre>
+</div>
+
+<div class="explicacion">
+  <strong>Conceptos:</strong> parseInt() | if/else if/else | operador >= | operador &&
+</div>
 
 <hr>
 
-<h2>Ejercicio 4</h2>
-<p><strong>Enunciado:</strong> Botón que aumenta un contador cada vez que se toca.</p>
+<h2>Ejercicio 4: Contador de Clics</h2>
+<div class="enunciado">
+  <strong>Enunciado:</strong> Crea un botón que aumenta un contador cada vez que se hace clic.
+</div>
 
-<button id="contBtn">Púlsame</button>
-<p id="contTxt"></p>
+<div class="solucion">
+  <strong>SOLUCIÓN:</strong>
+  <pre>
+HTML:
+&lt;button id="contBtn"&gt;Púlsame&lt;/button&gt;
+&lt;p id="contTxt"&gt;Clics: 0&lt;/p&gt;
 
-<script>
+JAVASCRIPT:
 let cont = 0;
 const contBtn = document.getElementById("contBtn");
 const contTxt = document.getElementById("contTxt");
@@ -87,20 +159,567 @@ contBtn.addEventListener("click", () => {
   cont++;
   contTxt.innerText = "Clics: " + cont;
 });
-</script>
+
+EXPLICACIÓN:
+- let cont = 0 → variable global que persiste
+- cont++ → incrementa (cont = cont + 1)
+- "Clics: " + cont → concatenación de strings
+
+ALTERNATIVA CON RESET:
+&lt;button id="resetBtn"&gt;Reiniciar&lt;/button&gt;
+
+resetBtn.addEventListener("click", () => {
+  cont = 0;
+  contTxt.innerText = "Clics: " + cont;
+});
+  </pre>
+</div>
+
+<div class="explicacion">
+  <strong>Conceptos:</strong> Variables globales | ++ (incremento) | concatenación de strings
+</div>
 
 <hr>
 
-<h2>Ejercicio 5</h2>
-<p><strong>Enunciado:</strong> Muestra un mensaje cuando el DOM esté listo.</p>
+<h2>Ejercicio 5: Mensaje al Cargar DOM</h2>
+<div class="enunciado">
+  <strong>Enunciado:</strong> Muestra un mensaje cuando el DOM esté completamente cargado.
+</div>
 
-<p id="domMsg"></p>
+<div class="solucion">
+  <strong>SOLUCIÓN:</strong>
+  <pre>
+HTML:
+&lt;p id="domMsg"&gt;&lt;/p&gt;
 
-<script>
+JAVASCRIPT:
 document.addEventListener("DOMContentLoaded", () => {
-  document.getElementById("domMsg").innerText = "DOM cargado correctamente";
+  const domMsg = document.getElementById("domMsg");
+  domMsg.innerText = "✅ DOM cargado correctamente";
+  domMsg.style.color = "green";
 });
-</script>
+
+EXPLICACIÓN:
+- DOMContentLoaded → evento que se dispara cuando el DOM está listo
+- Útil para asegurar que los elementos existen antes de manipularlos
+  </pre>
+</div>
+
+<div class="explicacion">
+  <strong>Conceptos:</strong> DOMContentLoaded | addEventListener() | eventos
+</div>
+
+<hr>
+
+<h2>Ejercicio 6: Validar Contraseña</h2>
+<div class="enunciado">
+  <strong>Enunciado:</strong> Valida que una contraseña tenga al menos 8 caracteres.
+</div>
+
+<div class="solucion">
+  <strong>SOLUCIÓN:</strong>
+  <pre>
+HTML:
+&lt;input id="pass" type="password" placeholder="Contraseña"&gt;
+&lt;button id="btnPass"&gt;Validar&lt;/button&gt;
+&lt;p id="msgPass"&gt;&lt;/p&gt;
+
+JAVASCRIPT:
+const pass = document.getElementById("pass");
+const btnPass = document.getElementById("btnPass");
+const msgPass = document.getElementById("msgPass");
+
+btnPass.addEventListener("click", () => {
+  const password = pass.value;
+  
+  if (password.length >= 8) {
+    msgPass.innerText = "✅ Contraseña válida";
+    msgPass.style.color = "green";
+  } else {
+    msgPass.innerText = "❌ Mínimo 8 caracteres";
+    msgPass.style.color = "red";
+  }
+});
+
+EXPLICACIÓN:
+- .length → propiedad que devuelve el número de caracteres
+- >= 8 → mayor o igual a 8
+  </pre>
+</div>
+
+<div class="explicacion">
+  <strong>Conceptos:</strong> .length (propiedad) | operador >= | type="password"
+</div>
+
+<hr>
+
+<h2>Ejercicio 7: Suma de Dos Números</h2>
+<div class="enunciado">
+  <strong>Enunciado:</strong> Crea una calculadora simple que sume dos números.
+</div>
+
+<div class="solucion">
+  <strong>SOLUCIÓN:</strong>
+  <pre>
+HTML:
+&lt;input id="num1" type="number" placeholder="Número 1"&gt;
+&lt;input id="num2" type="number" placeholder="Número 2"&gt;
+&lt;button id="btnSum"&gt;Sumar&lt;/button&gt;
+&lt;p id="resultSum"&gt;&lt;/p&gt;
+
+JAVASCRIPT:
+const num1 = document.getElementById("num1");
+const num2 = document.getElementById("num2");
+const btnSum = document.getElementById("btnSum");
+const resultSum = document.getElementById("resultSum");
+
+btnSum.addEventListener("click", () => {
+  const n1 = parseInt(num1.value);
+  const n2 = parseInt(num2.value);
+  const suma = n1 + n2;
+  
+  resultSum.innerText = n1 + " + " + n2 + " = " + suma;
+  resultSum.style.color = "blue";
+});
+
+EXPLICACIÓN:
+- parseInt() → convierte string a número
+- Operación aritmética: n1 + n2
+  </pre>
+</div>
+
+<div class="explicacion">
+  <strong>Conceptos:</strong> parseInt() | operaciones aritméticas | type="number"
+</div>
+
+<hr>
+
+<h2>Ejercicio 8: Cambiar Tamaño de Texto</h2>
+<div class="enunciado">
+  <strong>Enunciado:</strong> Crea botones que aumenten o disminuyan el tamaño del texto.
+</div>
+
+<div class="solucion">
+  <strong>SOLUCIÓN:</strong>
+  <pre>
+HTML:
+&lt;p id="parrafo"&gt;Este es un párrafo&lt;/p&gt;
+&lt;button id="btnMas"&gt;+ Aumentar&lt;/button&gt;
+&lt;button id="btnMenos"&gt;- Disminuir&lt;/button&gt;
+
+JAVASCRIPT:
+let tamaño = 16; // tamaño inicial en px
+const parrafo = document.getElementById("parrafo");
+const btnMas = document.getElementById("btnMas");
+const btnMenos = document.getElementById("btnMenos");
+
+btnMas.addEventListener("click", () => {
+  tamaño += 2;
+  parrafo.style.fontSize = tamaño + "px";
+});
+
+btnMenos.addEventListener("click", () => {
+  if (tamaño > 10) { // no hacer menor que 10px
+    tamaño -= 2;
+    parrafo.style.fontSize = tamaño + "px";
+  }
+});
+
+EXPLICACIÓN:
+- style.fontSize → cambia el tamaño del texto
+- += y -= → operadores de asignación compuesta
+- if (tamaño > 10) → validación para límite mínimo
+  </pre>
+</div>
+
+<div class="explicacion">
+  <strong>Conceptos:</strong> style.fontSize | += y -= | condicionales | validaciones
+</div>
+
+<hr>
+
+<h2>Ejercicio 9: Mostrar/Ocultar Contenido</h2>
+<div class="enunciado">
+  <strong>Enunciado:</strong> Crea un botón que muestre u oculte un párrafo.
+</div>
+
+<div class="solucion">
+  <strong>SOLUCIÓN:</strong>
+  <pre>
+HTML:
+&lt;button id="btnToggle"&gt;Mostrar/Ocultar&lt;/button&gt;
+&lt;p id="contenido"&gt;Este contenido puede ocultarse&lt;/p&gt;
+
+JAVASCRIPT:
+const btnToggle = document.getElementById("btnToggle");
+const contenido = document.getElementById("contenido");
+let visible = true;
+
+btnToggle.addEventListener("click", () => {
+  visible = !visible;
+  contenido.style.display = visible ? "block" : "none";
+});
+
+EXPLICACIÓN:
+- style.display = "block" → muestra el elemento
+- style.display = "none" → oculta el elemento
+- visible = !visible → toggle (invierte estado)
+
+ALTERNATIVA MEJOR (con classList):
+contenido.classList.toggle("oculto");
+
+CSS:
+.oculto {
+  display: none;
+}
+  </pre>
+</div>
+
+<div class="explicacion">
+  <strong>Conceptos:</strong> style.display | toggle | classList (alternativa)
+</div>
+
+<hr>
+
+<h2>Ejercicio 10: Validar Correo Electrónico</h2>
+<div class="enunciado">
+  <strong>Enunciado:</strong> Valida que el usuario escriba un correo electrónico válido (debe contener @).
+</div>
+
+<div class="solucion">
+  <strong>SOLUCIÓN:</strong>
+  <pre>
+HTML:
+&lt;input id="email" type="email" placeholder="tu@email.com"&gt;
+&lt;button id="btnEmail"&gt;Validar&lt;/button&gt;
+&lt;p id="msgEmail"&gt;&lt;/p&gt;
+
+JAVASCRIPT:
+const email = document.getElementById("email");
+const btnEmail = document.getElementById("btnEmail");
+const msgEmail = document.getElementById("msgEmail");
+
+btnEmail.addEventListener("click", () => {
+  const correo = email.value;
+  
+  if (correo.includes("@") && correo.includes(".")) {
+    msgEmail.innerText = "✅ Correo válido";
+    msgEmail.style.color = "green";
+  } else {
+    msgEmail.innerText = "❌ Correo no válido";
+    msgEmail.style.color = "red";
+  }
+});
+
+EXPLICACIÓN:
+- .includes() → verifica si contiene un carácter
+- && → ambas condiciones deben cumplirse
+- Validación básica: debe tener @ y .
+
+VERSIÓN CON EXPRESIÓN REGULAR (más avanzada):
+const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+if (regex.test(correo)) {
+  msgEmail.innerText = "✅ Correo válido";
+}
+  </pre>
+</div>
+
+<div class="explicacion">
+  <strong>Conceptos:</strong> .includes() | operador && | expresiones regulares (opcional)
+</div>
+
+<hr>
+
+<h2>Ejercicio 11: Lista de Tareas Simple</h2>
+<div class="enunciado">
+  <strong>Enunciado:</strong> Crea una lista donde puedas agregar tareas escribiendo y haciendo clic en un botón.
+</div>
+
+<div class="solucion">
+  <strong>SOLUCIÓN:</strong>
+  <pre>
+HTML:
+&lt;input id="inputTarea" type="text" placeholder="Nueva tarea"&gt;
+&lt;button id="btnAgregar"&gt;Agregar&lt;/button&gt;
+&lt;ul id="lista"&gt;&lt;/ul&gt;
+
+JAVASCRIPT:
+const inputTarea = document.getElementById("inputTarea");
+const btnAgregar = document.getElementById("btnAgregar");
+const lista = document.getElementById("lista");
+
+btnAgregar.addEventListener("click", () => {
+  const tarea = inputTarea.value;
+  
+  if (tarea === "") {
+    alert("Escribe una tarea");
+    return;
+  }
+  
+  // Crear elemento <li>
+  const li = document.createElement("li");
+  li.innerText = tarea;
+  
+  // Agregar a la lista
+  lista.appendChild(li);
+  
+  // Limpiar input
+  inputTarea.value = "";
+});
+
+EXPLICACIÓN:
+- document.createElement() → crea un nuevo elemento
+- appendChild() → agrega un elemento como hijo
+- alert() → muestra un mensaje emergente
+- return → detiene la función
+  </pre>
+</div>
+
+<div class="explicacion">
+  <strong>Conceptos:</strong> createElement() | appendChild() | alert() | return
+</div>
+
+<hr>
+
+<h2>Ejercicio 12: Cambiar Fondo de Página</h2>
+<div class="enunciado">
+  <strong>Enunciado:</strong> Crea botones para cambiar el color de fondo de la página.
+</div>
+
+<div class="solucion">
+  <strong>SOLUCIÓN:</strong>
+  <pre>
+HTML:
+&lt;button id="btnRojo"&gt;Rojo&lt;/button&gt;
+&lt;button id="btnVerde"&gt;Verde&lt;/button&gt;
+&lt;button id="btnAzul"&gt;Azul&lt;/button&gt;
+&lt;button id="btnBlanco"&gt;Blanco&lt;/button&gt;
+
+JAVASCRIPT:
+const btnRojo = document.getElementById("btnRojo");
+const btnVerde = document.getElementById("btnVerde");
+const btnAzul = document.getElementById("btnAzul");
+const btnBlanco = document.getElementById("btnBlanco");
+
+btnRojo.addEventListener("click", () => {
+  document.body.style.backgroundColor = "red";
+});
+
+btnVerde.addEventListener("click", () => {
+  document.body.style.backgroundColor = "green";
+});
+
+btnAzul.addEventListener("click", () => {
+  document.body.style.backgroundColor = "blue";
+});
+
+btnBlanco.addEventListener("click", () => {
+  document.body.style.backgroundColor = "white";
+});
+
+VERSIÓN COMPACTA (con función):
+function cambiarFondo(color) {
+  document.body.style.backgroundColor = color;
+}
+
+btnRojo.addEventListener("click", () => cambiarFondo("red"));
+btnVerde.addEventListener("click", () => cambiarFondo("green"));
+btnAzul.addEventListener("click", () => cambiarFondo("blue"));
+  </pre>
+</div>
+
+<div class="explicacion">
+  <strong>Conceptos:</strong> document.body | style.backgroundColor | funciones reutilizables
+</div>
+
+<hr>
+
+<h2>Ejercicio 13: Calculadora de Promedio</h2>
+<div class="enunciado">
+  <strong>Enunciado:</strong> Calcula el promedio de tres notas.
+</div>
+
+<div class="solucion">
+  <strong>SOLUCIÓN:</strong>
+  <pre>
+HTML:
+&lt;input id="nota1" type="number" placeholder="Nota 1" min="0" max="10"&gt;
+&lt;input id="nota2" type="number" placeholder="Nota 2" min="0" max="10"&gt;
+&lt;input id="nota3" type="number" placeholder="Nota 3" min="0" max="10"&gt;
+&lt;button id="btnPromediar"&gt;Calcular&lt;/button&gt;
+&lt;p id="resultPromedio"&gt;&lt;/p&gt;
+
+JAVASCRIPT:
+const nota1 = document.getElementById("nota1");
+const nota2 = document.getElementById("nota2");
+const nota3 = document.getElementById("nota3");
+const btnPromediar = document.getElementById("btnPromediar");
+const resultPromedio = document.getElementById("resultPromedio");
+
+btnPromediar.addEventListener("click", () => {
+  const n1 = parseFloat(nota1.value);
+  const n2 = parseFloat(nota2.value);
+  const n3 = parseFloat(nota3.value);
+  
+  const promedio = (n1 + n2 + n3) / 3;
+  
+  if (promedio >= 7) {
+    resultPromedio.innerText = "Promedio: " + promedio.toFixed(2) + " ✅ Aprobado";
+    resultPromedio.style.color = "green";
+  } else {
+    resultPromedio.innerText = "Promedio: " + promedio.toFixed(2) + " ❌ Reprobado";
+    resultPromedio.style.color = "red";
+  }
+});
+
+EXPLICACIÓN:
+- parseFloat() → convierte string a decimal
+- .toFixed(2) → redondea a 2 decimales
+- (n1 + n2 + n3) / 3 → fórmula del promedio
+  </pre>
+</div>
+
+<div class="explicacion">
+  <strong>Conceptos:</strong> parseFloat() | .toFixed() | operaciones matemáticas | condicionales
+</div>
+
+<hr>
+
+<h2>Ejercicio 14: Contar Letras en Texto</h2>
+<div class="enunciado">
+  <strong>Enunciado:</strong> Cuenta cuántas letras escribe el usuario en tiempo real.
+</div>
+
+<div class="solucion">
+  <strong>SOLUCIÓN:</strong>
+  <pre>
+HTML:
+&lt;textarea id="texto" placeholder="Escribe aquí"&gt;&lt;/textarea&gt;
+&lt;p id="contador"&gt;Letras: 0&lt;/p&gt;
+
+JAVASCRIPT:
+const texto = document.getElementById("texto");
+const contador = document.getElementById("contador");
+
+// Usar "input" en lugar de "click"
+texto.addEventListener("input", () => {
+  const cantidad = texto.value.length;
+  contador.innerText = "Letras: " + cantidad;
+});
+
+EXPLICACIÓN:
+- "input" → evento que se dispara cada vez que escribes
+- .length → número de caracteres en el texto
+- Se actualiza EN TIEMPO REAL (sin botón)
+
+ALTERNATIVA: contar solo letras (sin espacios)
+const sinEspacios = texto.value.replace(/ /g, "");
+const cantidad = sinEspacios.length;
+
+EXPLICACIÓN:
+- .replace(/ /g, "") → reemplaza todos los espacios por nada
+- /g → "g" de global (reemplaza todos)
+  </pre>
+</div>
+
+<div class="explicacion">
+  <strong>Conceptos:</strong> evento "input" | .length | .replace() | expresiones regulares básicas
+</div>
+
+<hr>
+
+<h2>Ejercicio 15: Convertir Mayúsculas/Minúsculas</h2>
+<div class="enunciado">
+  <strong>Enunciado:</strong> Convierte un texto a mayúsculas o minúsculas con botones.
+</div>
+
+<div class="solucion">
+  <strong>SOLUCIÓN:</strong>
+  <pre>
+HTML:
+&lt;input id="textoCaso" type="text" placeholder="Escribe algo"&gt;
+&lt;button id="btnMayus"&gt;MAYÚSCULAS&lt;/button&gt;
+&lt;button id="btnMinus"&gt;minúsculas&lt;/button&gt;
+&lt;button id="btnNormal"&gt;Normal&lt;/button&gt;
+&lt;p id="resultCaso"&gt;&lt;/p&gt;
+
+JAVASCRIPT:
+const textoCaso = document.getElementById("textoCaso");
+const btnMayus = document.getElementById("btnMayus");
+const btnMinus = document.getElementById("btnMinus");
+const btnNormal = document.getElementById("btnNormal");
+const resultCaso = document.getElementById("resultCaso");
+
+btnMayus.addEventListener("click", () => {
+  resultCaso.innerText = textoCaso.value.toUpperCase();
+});
+
+btnMinus.addEventListener("click", () => {
+  resultCaso.innerText = textoCaso.value.toLowerCase();
+});
+
+btnNormal.addEventListener("click", () => {
+  resultCaso.innerText = textoCaso.value;
+});
+
+EXPLICACIÓN:
+- .toUpperCase() → convierte a MAYÚSCULAS
+- .toLowerCase() → convierte a minúsculas
+- Métodos de strings que no modifican el original
+  </pre>
+</div>
+
+<div class="explicacion">
+  <strong>Conceptos:</strong> .toUpperCase() | .toLowerCase() | métodos de strings
+</div>
+
+<hr>
+
+<h2>📌 RESUMEN DE CONCEPTOS PRINCIPALES</h2>
+<pre>
+MÉTODOS DEL DOM:
+- getElementById() → obtiene elemento por ID
+- querySelector() → obtiene elemento por selector CSS
+- createElement() → crea un nuevo elemento
+- appendChild() → agrega un elemento como hijo
+- addEventListener() → escucha un evento
+
+PROPIEDADES Y MÉTODOS DE ELEMENTOS:
+- .value → obtiene el valor de un input
+- .innerText → cambia el texto de un elemento
+- .innerHTML → cambia el contenido HTML
+- .style.propiedad → cambia estilos CSS
+- .classList → maneja clases CSS
+
+MÉTODOS DE STRINGS:
+- .length → número de caracteres
+- .includes() → verifica si contiene un carácter
+- .toUpperCase() → convierte a mayúsculas
+- .toLowerCase() → convierte a minúsculas
+- .replace() → reemplaza caracteres
+- .trim() → elimina espacios al inicio/final
+
+OPERADORES:
+- && → AND (y)
+- || → OR (o)
+- ! → NOT (no)
+- ++ → incremento
+- -- → decremento
+- += y -= → asignación compuesta
+
+EVENTOS COMUNES:
+- click → clic del ratón
+- input → mientras escribes
+- change → cambio de valor
+- DOMContentLoaded → DOM listo
+- submit → envío de formulario
+
+CONVERSIÓN DE TIPOS:
+- parseInt() → string a número entero
+- parseFloat() → string a número decimal
+- String() → a texto
+- Boolean() → a booleano
+</pre>
 
 </body>
 </html>
