@@ -8,22 +8,14 @@ implementa delegacion de eventos para qe en el boton de eliminar se eliine la ta
 <head>
     <meta charset="UTF-8">
     <title>Lista Delegacion Simple</title>
-    <style>
-        body { font-family: Arial, sans-serif; max-width: 400px; margin: 40px auto; }
-        input { width: 70%; padding: 6px; }
-        button { padding: 7px 13px; margin-left: 6px; }
-        ul { padding: 0; }
-        li { list-style: none; margin: 8px 0; display:flex; gap:10px; }
-        .del { background: #fd5757; color: white; border: none; border-radius: 50%; width: 26px; height: 26px; cursor: pointer;}
-    </style>
 </head>
 <body>
     <h2>Lista de Tareas</h2>
     <input id="input" type="text" placeholder="Nueva tarea">
     <button id="add">Añadir</button>
     <ul id="lista">
-        <li>Tarea 1 <button class="del">&#128465;</button></li>
-        <li>Tarea 2 <button class="del">&#128465;</button></li>
+        <li>Tarea 1 <button class="del">X</button></li>
+        <li>Tarea 2 <button class="del">X</button></li>
     </ul>
     <script>
         const lista = document.getElementById('lista');
@@ -34,7 +26,7 @@ implementa delegacion de eventos para qe en el boton de eliminar se eliine la ta
             const t = input.value.trim();
             if(t){
                 const li = document.createElement('li');
-                li.innerHTML = t + ' <button class="del">&#128465;</button>';
+                li.innerHTML = t + ' <button class="del">X</button>';
                 lista.appendChild(li);
                 input.value = '';
                 input.focus();
