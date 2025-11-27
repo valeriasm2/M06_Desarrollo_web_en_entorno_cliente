@@ -3,71 +3,350 @@
 <head>
 <meta charset="UTF-8">
 <title>LOGRO 1 – El Intérprete del Navegador</title>
+<style>
+  body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.8; }
+  h1 { color: #333; }
+  h2 { color: #0056b3; margin-top: 30px; }
+  pre { background-color: #f5f5f5; padding: 10px; border-radius: 5px; overflow-x: auto; }
+  hr { margin: 40px 0; }
+</style>
 </head>
-
 <body>
-<h1>LOGRO 1 – El Intérprete del Navegador</h1>
-<p>Comprender cómo se ejecuta JavaScript y su relación con el DOM.</p>
 
-<h2>Ejercicio 1</h2>
+<h1>LOGRO 1 – El Intérprete del Navegador</h1>
+<p><strong>Objetivo:</strong> Comprender cómo se ejecuta JavaScript y su relación con el DOM.</p>
+<p><strong>Duración:</strong> 10–12 minutos</p>
+
+<hr>
+
+<h2>Ejercicio 1: Orden de Carga (Concepto Básico)</h2>
 <p><strong>Enunciado:</strong> Explica qué ocurre desde que el navegador carga una página hasta que JavaScript puede manipular el DOM.</p>
 
-<!-- SOLUCIÓN -->
-<!--
+<p><strong>SOLUCIÓN:</strong></p>
+<pre>
 1. El navegador descarga el archivo HTML.
-2. Lo procesa línea por línea.
+2. Lo procesa línea por línea (parsing).
 3. Construye el DOM (una representación en memoria del HTML).
 4. Cuando el DOM está completo, JavaScript ya puede manipularlo.
-5. Si el <script> está al final del body, el DOM ya existe.
+5. Si el &lt;script&gt; está al final del body, el DOM ya existe.
 6. Si está arriba, se debe usar DOMContentLoaded para esperar.
--->
+</pre>
 
 <hr>
 
-<h2>Ejercicio 2</h2>
+<h2>Ejercicio 2: Esquema del Proceso</h2>
 <p><strong>Enunciado:</strong> Dibuja un esquema simple del proceso HTML → DOM → JavaScript.</p>
 
-<!-- SOLUCIÓN -->
-<!--
-HTML (archivo físico)
-     ↓ interpretado
-DOM (estructura interna en memoria)
-     ↓ manipulación
+<p><strong>SOLUCIÓN:</strong></p>
+<pre>
+HTML (archivo físico en el servidor)
+         ↓ descargado e interpretado
+    DOM (estructura interna en memoria del navegador)
+         ↓ manipulación con JavaScript
 JavaScript modifica el DOM
-     ↓
-La pantalla se actualiza
--->
+         ↓
+    La pantalla se actualiza (render)
+</pre>
 
 <hr>
 
-<h2>Ejercicio 3</h2>
+<h2>Ejercicio 3: ¿Qué Modifica JavaScript?</h2>
 <p><strong>Enunciado:</strong> ¿JavaScript modifica el HTML original o solo el DOM?</p>
 
-<!-- SOLUCIÓN -->
-<!--
+<p><strong>SOLUCIÓN:</strong></p>
+<pre>
 Respuesta correcta: SOLO EL DOM.
+
 El HTML original no cambia, solo la copia en memoria (DOM).
--->
+
+Ejemplo:
+- Si inspeccionas el código fuente (Ctrl+U), verás el HTML original sin cambios.
+- Si abres DevTools (F12), verás el DOM modificado por JavaScript.
+</pre>
 
 <hr>
 
-<h2>Ejercicio 4</h2>
-<p><strong>Enunciado:</strong> ¿Por qué colocar los scripts al final del body?</p>
+<h2>Ejercicio 4: Ubicación de Scripts</h2>
+<p><strong>Enunciado:</strong> ¿Por qué es una buena práctica colocar los scripts al final del body?</p>
 
-<!-- SOLUCIÓN -->
-<!--
+<p><strong>SOLUCIÓN:</strong></p>
+<pre>
 Porque permite que el DOM exista antes de que JavaScript intente acceder a él.
--->
+
+Ventajas:
+✅ El HTML se carga primero
+✅ Los elementos existen en el DOM
+✅ JavaScript puede accederlos sin problemas
+✅ La página se ve más rápida al usuario
+
+Ejemplo CORRECTO:
+&lt;body&gt;
+  &lt;h1 id="titulo"&gt;Mi Título&lt;/h1&gt;
+  
+  &lt;script&gt;
+    document.getElementById("titulo").style.color = "red"; // ✅ Funciona
+  &lt;/script&gt;
+&lt;/body&gt;
+</pre>
 
 <hr>
 
-<h2>Ejercicio 5</h2>
+<h2>Ejercicio 5: Error Común</h2>
 <p><strong>Enunciado:</strong> Describe un ejemplo donde JavaScript falle por ejecutarse antes de que exista un elemento.</p>
 
-<!-- SOLUCIÓN -->
-<!--
-Ejemplo: document.getElementById("titulo") falla si el elemento aún no se ha cargado.
--->
+<p><strong>SOLUCIÓN:</strong></p>
+<pre>
+CÓDIGO INCORRECTO:
+&lt;script&gt;
+  document.getElementById("titulo").style.color = "red"; // ❌ ERROR
+&lt;/script&gt;
+
+&lt;h1 id="titulo"&gt;Mi Título&lt;/h1&gt;
+
+Error: document.getElementById("titulo") devuelve null porque el elemento aún no existe.
+
+SOLUCIONES:
+
+Opción 1 - Mover script al final:
+&lt;h1 id="titulo"&gt;Mi Título&lt;/h1&gt;
+&lt;script&gt;
+  document.getElementById("titulo").style.color = "red"; // ✅ Funciona
+&lt;/script&gt;
+
+Opción 2 - Usar DOMContentLoaded:
+&lt;script&gt;
+  document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById("titulo").style.color = "red"; // ✅ Funciona
+  });
+&lt;/script&gt;
+&lt;h1 id="titulo"&gt;Mi Título&lt;/h1&gt;
+
+Opción 3 - Usar defer:
+&lt;script defer&gt;
+  document.getElementById("titulo").style.color = "red"; // ✅ Funciona
+&lt;/script&gt;
+&lt;h1 id="titulo"&gt;Mi Título&lt;/h1&gt;
+</pre>
+
+<hr>
+
+<h2>Ejercicio 6: Orden de Ejecución</h2>
+<p><strong>Enunciado:</strong> Analiza el siguiente código y escribe en orden qué aparecerá en la consola.</p>
+
+<p><strong>CÓDIGO:</strong></p>
+<pre>
+console.log("1. Inicio");
+
+document.addEventListener('DOMContentLoaded', function() {
+  console.log("2. DOM listo");
+});
+
+console.log("3. Después del listener");
+
+setTimeout(function() {
+  console.log("4. Timeout 0ms");
+}, 0);
+
+console.log("5. Final del script");
+</pre>
+
+<p><strong>SOLUCIÓN - Orden en consola:</strong></p>
+<pre>
+1. Inicio
+3. Después del listener
+5. Final del script
+2. DOM listo
+4. Timeout 0ms
+
+EXPLICACIÓN:
+- Primero: código sincrónico (líneas 1-5)
+- Luego: eventos del DOM (DOMContentLoaded)
+- Finalmente: tareas asincrónicas (setTimeout)
+</pre>
+
+<hr>
+
+<h2>Ejercicio 7: Eventos del Navegador</h2>
+<p><strong>Enunciado:</strong> Crea un script que imprima en la consola cuándo se cumplen estos eventos:
+- Cuando comienza a cargar la página
+- Cuando se descarga completamente el DOM
+- Cuando se cargan todos los recursos
+- Cuando el usuario intenta cerrar la página</p>
+
+<p><strong>SOLUCIÓN:</strong></p>
+<pre>
+console.log("Comienza la carga");
+
+window.addEventListener('DOMContentLoaded', function() {
+  console.log("DOM completamente cargado");
+});
+
+window.addEventListener('load', function() {
+  console.log("Todos los recursos cargados (imágenes, CSS, etc.)");
+});
+
+window.addEventListener('beforeunload', function() {
+  console.log("El usuario intenta cerrar la página");
+});
+
+EVENTOS EXPLICADOS:
+- DOMContentLoaded: Se dispara cuando el DOM está listo
+- load: Se dispara cuando TODOS los recursos están cargados (imágenes, CSS, JS)
+- beforeunload: Se dispara antes de abandonar la página
+</pre>
+
+<hr>
+
+<h2>Ejercicio 8: Call Stack vs Event Loop</h2>
+<p><strong>Enunciado:</strong> Predice el orden de salida en consola y explica por qué.</p>
+
+<p><strong>CÓDIGO:</strong></p>
+<pre>
+function prioridad1() {
+  console.log("Función 1");
+}
+
+console.log("Inicio");
+setTimeout(prioridad1, 0);
+Promise.resolve().then(() => console.log("Promise"));
+console.log("Fin");
+</pre>
+
+<p><strong>SOLUCIÓN - Orden en consola:</strong></p>
+<pre>
+Inicio
+Fin
+Promise
+Función 1
+
+EXPLICACIÓN:
+1. Se ejecuta código sincrónico: "Inicio" y "Fin"
+2. Luego Promesas (microtareas) - tienen mayor prioridad
+3. Finalmente setTimeout (macrotarea) - aunque esté en 0ms
+
+PRIORIDAD: Sincrónico > Promesas > setTimeout
+</pre>
+
+<hr>
+
+<h2>Ejercicio 9: Rendimiento - Reflow</h2>
+<p><strong>Enunciado:</strong> ¿Cuál de estos dos códigos es más eficiente? Explica por qué.</p>
+
+<p><strong>Código A (MENOS eficiente):</strong></p>
+<pre>
+for (let i = 0; i < 5; i++) {
+  document.getElementById("caja").style.width = (100 + i * 10) + "px";
+}
+</pre>
+
+<p><strong>Código B (MÁS eficiente):</strong></p>
+<pre>
+const caja = document.getElementById("caja");
+for (let i = 0; i < 5; i++) {
+  caja.style.width = (100 + i * 10) + "px";
+}
+</pre>
+
+<p><strong>SOLUCIÓN:</strong></p>
+<pre>
+B es más eficiente porque:
+
+- En A, se accede al DOM 5 veces con getElementById()
+- En B, se accede una sola vez y se reutiliza la referencia
+- El acceso al DOM es costoso en rendimiento
+- B es aproximadamente 5 veces más rápido
+
+REGLA DE ORO: Guarda referencias a elementos del DOM en variables
+para evitar acceder múltiples veces.
+</pre>
+
+<hr>
+
+<h2>Ejercicio 10: Flujo Completo</h2>
+<p><strong>Enunciado:</strong> Explica qué sucede en cada fase cuando se carga una página con un botón que tiene un event listener.</p>
+
+<p><strong>HTML:</strong></p>
+<pre>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;script src="script.js" defer&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;button id="btn"&gt;Haz clic&lt;/button&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+
+<p><strong>JavaScript (script.js):</strong></p>
+<pre>
+console.log("1. Script cargado");
+
+document.getElementById("btn").addEventListener("click", function() {
+  console.log("3. Botón clickeado");
+});
+
+console.log("2. Event listener añadido");
+</pre>
+
+<p><strong>SOLUCIÓN - Fases de ejecución:</strong></p>
+<pre>
+FASE 1 - Parsing del HTML:
+- El navegador lee el HTML
+- Encuentra &lt;script defer&gt; → descarga pero NO ejecuta
+
+FASE 2 - DOM Ready:
+- Se termina de parsear el HTML
+- Se ejecuta el script (por defer)
+- Salida en consola: "1. Script cargado" y "2. Event listener añadido"
+
+FASE 3 - Interacción del usuario:
+- Usuario hace clic en el botón
+- Se ejecuta el callback del evento
+- Salida en consola: "3. Botón clickeado"
+</pre>
+
+<hr>
+
+<h2>📌 RESUMEN DE CONCEPTOS CLAVE</h2>
+<pre>
+HTML: Archivo de texto con etiquetas
+
+DOM: Estructura en memoria que el navegador crea del HTML
+
+Sincrónico: Se ejecuta línea por línea, bloquea otras tareas
+
+Asincrónico: Se ejecuta después, sin bloquear (setTimeout, Promesas)
+
+Event Loop: Verifica si hay tareas en la cola de ejecución
+
+DOMContentLoaded: Evento que se dispara cuando el DOM está listo
+
+load: Evento que se dispara cuando TODO está cargado
+
+Reflow: Recalcula posición y tamaño de elementos
+
+Repaint: Redibuja los elementos en pantalla
+
+Call Stack: Pila de funciones en ejecución
+
+Microtareas: Promesas (alta prioridad)
+
+Macrotareas: setTimeout, setInterval (baja prioridad)
+</pre>
+
+<hr>
+
+<h2>✅ TIPS IMPORTANTES</h2>
+<pre>
+1. Coloca &lt;script&gt; al final del &lt;body&gt; o usa 'defer'
+2. Si necesitas manipular el DOM, espera con DOMContentLoaded
+3. Guarda referencias a elementos DOM en variables
+4. Accede al DOM lo menos posible para mejor rendimiento
+5. Recuerda: JavaScript modifica el DOM, NO el HTML original
+6. Prioridad de ejecución: Sincrónico > Promesas > setTimeout
+7. Usa F12 para abrir la consola y ver mensajes de depuración
+</pre>
 
 </body>
 </html>
