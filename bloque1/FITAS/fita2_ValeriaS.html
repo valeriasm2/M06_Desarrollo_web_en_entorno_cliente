@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <title>fita2_ValeriaS</title>
+    </head>
+    <body>
+        <!-- input + boton y parrf para mostar el resultado-->
+        <input type="text" id="dato">
+        <button id="comprobar" type="button">Comprobar</button>
+        <p id="resultado"></p>
+        
+        <script>
+            /*variables aa la funcion donde cogen los elemonts del hml*/
+            const btn = document.getElementById("comprobar");
+            const input = document.getElementById("dato");
+            const res = document.getElementById("resultado");
+        
+            btn.addEventListener("click", () => {
+                const valor = input.value.trim();
+        
+                if (valor === "") {
+                    res.textContent = "Escribe algo";
+                    return;
+                }
+        
+                if (/^[a-zA-Z]+$/.test(valor)) {
+                    res.textContent = "Has escrito una letraa";
+                    return;
+                }
+        
+                if (!isNaN(valor) && Number.isInteger(Number(valor))) {
+                    if (valor % 2 === 0) {
+                        res.textContent = "Es un número par";
+                    } else {
+                        res.textContent = "Es un número impar";
+                    }
+                    return;
+                }
+        
+                res.textContent = "No es letra ni número entero";
+            });
+        </script>
+    </body>
+</html>
