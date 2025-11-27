@@ -9,6 +9,9 @@
 <h1>LOGRO 4 – El Jugador de Teclas</h1>
 <p>Eventos de teclado y lógica condicional.</p>
 
+<!-- ===================================================== -->
+<!-- ===================== EJERCICIO 1 ==================== -->
+<!-- ===================================================== -->
 <h2>Ejercicio 1</h2>
 <p><strong>Enunciado:</strong> Detecta si el usuario presiona Enter.</p>
 
@@ -24,6 +27,9 @@ document.addEventListener("keydown", (e) => {
 
 <hr>
 
+<!-- ===================================================== -->
+<!-- ===================== EJERCICIO 2 ==================== -->
+<!-- ===================================================== -->
 <h2>Ejercicio 2</h2>
 <p><strong>Enunciado:</strong> Contador de caracteres mientras se escribe.</p>
 
@@ -41,6 +47,9 @@ inp.addEventListener("keydown", () => {
 
 <hr>
 
+<!-- ===================================================== -->
+<!-- ===================== EJERCICIO 3 ==================== -->
+<!-- ===================================================== -->
 <h2>Ejercicio 3</h2>
 <p><strong>Enunciado:</strong> Cambia color del fondo según tecla.</p>
 
@@ -53,6 +62,9 @@ document.addEventListener("keydown", (e) => {
 
 <hr>
 
+<!-- ===================================================== -->
+<!-- ===================== EJERCICIO 4 ==================== -->
+<!-- ===================================================== -->
 <h2>Ejercicio 4</h2>
 <p><strong>Enunciado:</strong> Detecta combinaciones CTRL + tecla.</p>
 
@@ -73,6 +85,9 @@ document.addEventListener("keydown", (e) => {
 
 <hr>
 
+<!-- ===================================================== -->
+<!-- ===================== EJERCICIO 5 ==================== -->
+<!-- ===================================================== -->
 <h2>Ejercicio 5</h2>
 <p><strong>Enunciado:</strong> Mover un cuadrado con flechas.</p>
 
@@ -93,6 +108,112 @@ document.addEventListener("keydown", (e) => {
   box.style.transform = `translate(${x}px, ${y}px)`;
 });
 </script>
+
+<hr>
+
+<!-- ===================================================== -->
+<!-- ===================== EJERCICIO 6 ==================== -->
+<!-- ===================================================== -->
+<h2>Ejercicio 6</h2>
+<p><strong>Enunciado:</strong> Muestra el nombre y código de la tecla.</p>
+
+<p id="keyInfo"></p>
+
+<script>
+document.addEventListener("keydown", (e) => {
+  document.getElementById("keyInfo").innerText =
+    "Tecla: " + e.key + " | Código: " + e.keyCode;
+});
+</script>
+
+<hr>
+
+<!-- ===================================================== -->
+<!-- ===================== EJERCICIO 7 ==================== -->
+<!-- ===================================================== -->
+<h2>Ejercicio 7</h2>
+<p><strong>Enunciado:</strong> Permite escribir solo números.</p>
+
+<input id="numInput" type="text">
+<p id="numMsg"></p>
+
+<script>
+document.getElementById("numInput").addEventListener("keydown", (e) => {
+  if (isNaN(e.key) && e.key !== "Backspace") {
+    e.preventDefault();
+    document.getElementById("numMsg").innerText = "Solo números permitidos";
+  } else {
+    document.getElementById("numMsg").innerText = "";
+  }
+});
+</script>
+
+<hr>
+
+<!-- ===================================================== -->
+<!-- ===================== EJERCICIO 8 ==================== -->
+<!-- ===================================================== -->
+<h2>Ejercicio 8</h2>
+<p><strong>Enunciado:</strong> Escribe en pantalla al presionar teclas.</p>
+
+<div id="display" style="
+  width:300px;height:100px;border:1px solid black;padding:10px;">
+</div>
+
+<script>
+document.addEventListener("keydown", (e) => {
+  if (e.key.length === 1) {
+    document.getElementById("display").innerText += e.key;
+  }
+});
+</script>
+
+<hr>
+
+<!-- ===================================================== -->
+<!-- ===================== EJERCICIO 9 ==================== -->
+<!-- ===================================================== -->
+<h2>Ejercicio 9</h2>
+<p><strong>Enunciado:</strong> Bloquea la tecla ESC.</p>
+
+<p id="escMsg"></p>
+
+<script>
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") {
+    e.preventDefault();
+    document.getElementById("escMsg").innerText = "La tecla ESC está bloqueada.";
+  }
+});
+</script>
+
+<hr>
+
+<!-- ===================================================== -->
+<!-- ===================== EJERCICIO 10 ==================== -->
+<!-- ===================================================== -->
+<h2>Ejercicio 10</h2>
+<p><strong>Enunciado:</strong> Adivina el número secreto.</p>
+
+<input id="guessInput" type="text">
+<p id="guessMsg"></p>
+
+<script>
+const secret = Math.floor(Math.random() * 10) + 1;
+
+document.getElementById("guessInput").addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    const num = Number(e.target.value);
+    if (num === secret) {
+      guessMsg.innerText = "🎉 ¡Correcto!";
+    } else {
+      guessMsg.innerText = "❌ Intenta de nuevo.";
+    }
+  }
+});
+</script>
+
+<hr>
 
 </body>
 </html>
