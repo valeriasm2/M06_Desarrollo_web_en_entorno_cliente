@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>LOGRO 3 – El Explorador del DOM</title>
+</head>
+
+<body>
+<h1>LOGRO 3 – El Explorador del DOM</h1>
+<p>Comprensión del modelo de objetos del documento.</p>
+
+<h2>Ejercicio 1</h2>
+<p><strong>Enunciado:</strong> Explica diferencias entre getElementById y querySelector.</p>
+
+<!-- SOLUCIÓN -->
+<!--
+getElementById:
+- Más rápido
+- Exclusivo para IDs
+
+querySelector:
+- Usa selectores CSS (#id, .clase, etc.)
+- Más flexible pero menos eficiente
+
+-->
+
+<hr>
+
+<h2>Ejercicio 2</h2>
+<p><strong>Enunciado:</strong> Escribe el selector correcto para cada caso:</p>
+
+<!-- SOLUCIÓN -->
+<!--
+a) document.getElementsByClassName("item")
+b) document.querySelector("div p")
+c) document.querySelectorAll("img[data-foto]")
+-->
+
+<hr>
+
+<h2>Ejercicio 3</h2>
+<p><strong>Enunciado:</strong> Corrige los selectores incorrectos.</p>
+
+<!-- SOLUCIÓN -->
+<!--
+a) INCORRECTO → document.getElementsById("boton")  
+   CORRECTO:   document.getElementById("boton")
+
+b) CORRECTO → document.querySelectorAll("p.intro")
+
+c) CORRECTO → document.getElementById("titulo-principal")
+-->
+
+<hr>
+
+<h2>Ejercicio 4</h2>
+<p><strong>Enunciado:</strong> Diferencias entre HTMLCollection y NodeList.</p>
+
+<!-- SOLUCIÓN -->
+<!--
+HTMLCollection:
+- En vivo (si el DOM cambia, cambia)
+- No tiene forEach() en navegadores antiguos
+
+NodeList:
+- Estática
+- Tiene forEach()
+-->
+
+<hr>
+
+<h2>Ejercicio 5</h2>
+<p><strong>Enunciado:</strong> Escribe el selector CSS que obtiene todos los li dentro de ul.menu.</p>
+
+<!-- SOLUCIÓN -->
+<!--
+Selector correcto:
+ul.menu li
+-->
+
+</body>
+</html>

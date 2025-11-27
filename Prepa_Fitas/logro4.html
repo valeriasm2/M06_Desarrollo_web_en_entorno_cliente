@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>LOGRO 4 – El Jugador de Teclas</title>
+</head>
+
+<body>
+<h1>LOGRO 4 – El Jugador de Teclas</h1>
+<p>Eventos de teclado y lógica condicional.</p>
+
+<h2>Ejercicio 1</h2>
+<p><strong>Enunciado:</strong> Detecta si el usuario presiona Enter.</p>
+
+<p id="enterMsg"></p>
+
+<script>
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    document.getElementById("enterMsg").innerText = "Has presionado Enter";
+  }
+});
+</script>
+
+<hr>
+
+<h2>Ejercicio 2</h2>
+<p><strong>Enunciado:</strong> Contador de caracteres mientras se escribe.</p>
+
+<input id="inp" type="text">
+<p id="charCount"></p>
+
+<script>
+const inp = document.getElementById("inp");
+const charCount = document.getElementById("charCount");
+
+inp.addEventListener("keydown", () => {
+  charCount.innerText = "Caracteres: " + inp.value.length;
+});
+</script>
+
+<hr>
+
+<h2>Ejercicio 3</h2>
+<p><strong>Enunciado:</strong> Cambia color del fondo según tecla.</p>
+
+<script>
+document.addEventListener("keydown", (e) => {
+  if (e.key === "r") document.body.style.background = "red";
+  if (e.key === "a") document.body.style.background = "blue";
+});
+</script>
+
+<hr>
+
+<h2>Ejercicio 4</h2>
+<p><strong>Enunciado:</strong> Detecta combinaciones CTRL + tecla.</p>
+
+<p id="combMsg"></p>
+
+<script>
+document.addEventListener("keydown", (e) => {
+  if (e.ctrlKey && e.key === "s") {
+    e.preventDefault();
+    combMsg.innerText = "Guardando...";
+  }
+  if (e.ctrlKey && e.key === "d") {
+    e.preventDefault();
+    combMsg.innerText = "Duplicando...";
+  }
+});
+</script>
+
+<hr>
+
+<h2>Ejercicio 5</h2>
+<p><strong>Enunciado:</strong> Mover un cuadrado con flechas.</p>
+
+<div id="box" style="
+width:100px;height:100px;background:red;position:absolute;">
+</div>
+
+<script>
+const box = document.getElementById("box");
+let x = 0, y = 0;
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === "ArrowUp") y -= 10;
+  if (e.key === "ArrowDown") y += 10;
+  if (e.key === "ArrowLeft") x -= 10;
+  if (e.key === "ArrowRight") x += 10;
+
+  box.style.transform = `translate(${x}px, ${y}px)`;
+});
+</script>
+
+</body>
+</html>

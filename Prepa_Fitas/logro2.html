@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>LOGRO 2 – El Verificador</title>
+</head>
+
+<body>
+<h1>LOGRO 2 – El Verificador</h1>
+<p>Variables, condicionales, eventos y manipulación básica del DOM.</p>
+
+<h2>Ejercicio 1</h2>
+<p><strong>Enunciado:</strong> Escribe un programa que verifique si el usuario escribió la palabra “hola”.</p>
+
+<input id="texto" type="text">
+<button id="btn1">Verificar</button>
+<p id="msg1"></p>
+
+<script>
+// Obtenemos elementos
+const input1 = document.getElementById("texto");
+const btn1 = document.getElementById("btn1");
+const msg1 = document.getElementById("msg1");
+
+// Evento de clic
+btn1.addEventListener("click", () => {
+  const valor = input1.value;
+
+  // Condicional
+  if (valor === "hola") {
+    msg1.innerText = "Correcto";
+  } else {
+    msg1.innerText = "Incorrecto";
+  }
+});
+</script>
+
+<hr>
+
+<h2>Ejercicio 2</h2>
+<p><strong>Enunciado:</strong> Haz que un párrafo cambie entre rojo y azul al hacer clic.</p>
+
+<p id="colorP">Haz clic aquí para cambiar color</p>
+
+<script>
+const pColor = document.getElementById("colorP");
+let azul = false;
+
+pColor.addEventListener("click", () => {
+  azul = !azul;
+  pColor.style.color = azul ? "blue" : "red";
+});
+</script>
+
+<hr>
+
+<h2>Ejercicio 3</h2>
+<p><strong>Enunciado:</strong> Determina si un usuario es mayor de edad.</p>
+
+<p id="edadMsg"></p>
+
+<script>
+let edad = 17; // ejemplo
+const edadMsg = document.getElementById("edadMsg");
+
+if (edad >= 18) {
+  edadMsg.innerText = "Es mayor de edad";
+} else {
+  edadMsg.innerText = "Es menor de edad";
+}
+</script>
+
+<hr>
+
+<h2>Ejercicio 4</h2>
+<p><strong>Enunciado:</strong> Botón que aumenta un contador cada vez que se toca.</p>
+
+<button id="contBtn">Púlsame</button>
+<p id="contTxt"></p>
+
+<script>
+let cont = 0;
+const contBtn = document.getElementById("contBtn");
+const contTxt = document.getElementById("contTxt");
+
+contBtn.addEventListener("click", () => {
+  cont++;
+  contTxt.innerText = "Clics: " + cont;
+});
+</script>
+
+<hr>
+
+<h2>Ejercicio 5</h2>
+<p><strong>Enunciado:</strong> Muestra un mensaje cuando el DOM esté listo.</p>
+
+<p id="domMsg"></p>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("domMsg").innerText = "DOM cargado correctamente";
+});
+</script>
+
+</body>
+</html>

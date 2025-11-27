@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>LOGRO 1 – El Intérprete del Navegador</title>
+</head>
+
+<body>
+<h1>LOGRO 1 – El Intérprete del Navegador</h1>
+<p>Comprender cómo se ejecuta JavaScript y su relación con el DOM.</p>
+
+<h2>Ejercicio 1</h2>
+<p><strong>Enunciado:</strong> Explica qué ocurre desde que el navegador carga una página hasta que JavaScript puede manipular el DOM.</p>
+
+<!-- SOLUCIÓN -->
+<!--
+1. El navegador descarga el archivo HTML.
+2. Lo procesa línea por línea.
+3. Construye el DOM (una representación en memoria del HTML).
+4. Cuando el DOM está completo, JavaScript ya puede manipularlo.
+5. Si el <script> está al final del body, el DOM ya existe.
+6. Si está arriba, se debe usar DOMContentLoaded para esperar.
+-->
+
+<hr>
+
+<h2>Ejercicio 2</h2>
+<p><strong>Enunciado:</strong> Dibuja un esquema simple del proceso HTML → DOM → JavaScript.</p>
+
+<!-- SOLUCIÓN -->
+<!--
+HTML (archivo físico)
+     ↓ interpretado
+DOM (estructura interna en memoria)
+     ↓ manipulación
+JavaScript modifica el DOM
+     ↓
+La pantalla se actualiza
+-->
+
+<hr>
+
+<h2>Ejercicio 3</h2>
+<p><strong>Enunciado:</strong> ¿JavaScript modifica el HTML original o solo el DOM?</p>
+
+<!-- SOLUCIÓN -->
+<!--
+Respuesta correcta: SOLO EL DOM.
+El HTML original no cambia, solo la copia en memoria (DOM).
+-->
+
+<hr>
+
+<h2>Ejercicio 4</h2>
+<p><strong>Enunciado:</strong> ¿Por qué colocar los scripts al final del body?</p>
+
+<!-- SOLUCIÓN -->
+<!--
+Porque permite que el DOM exista antes de que JavaScript intente acceder a él.
+-->
+
+<hr>
+
+<h2>Ejercicio 5</h2>
+<p><strong>Enunciado:</strong> Describe un ejemplo donde JavaScript falle por ejecutarse antes de que exista un elemento.</p>
+
+<!-- SOLUCIÓN -->
+<!--
+Ejemplo: document.getElementById("titulo") falla si el elemento aún no se ha cargado.
+-->
+
+</body>
+</html>
