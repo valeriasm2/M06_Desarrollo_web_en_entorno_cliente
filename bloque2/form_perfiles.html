@@ -4,23 +4,128 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulario de Perfiles</title>
+    <style>
+      .error { color: red; }
+      .tarjeta { border:1px solid #ccc; margin:10px 0; padding:10px; max-width:300px; }
+      .tarjeta img { max-width:100px; max-height:100px; display:block; margin-bottom:10px;}
+    </style>
 </head>
 <body>
     <h1>Formulario de Perfiles</h1>
 
-    <!--generar from
-    1. nombre
-    2. intereses
-      . videojuegos
-      . deporte
-      . lectura
-    3. foto (selector)
-    boton de crear -> crear perfil
-    
-    lleva a una parte donde sale el nombre la foto, los intereses y dos botones de dislike y like -->
-    <script>
-        
-    </script>
+    <form id="formulario">
+      <label>Nombre:
+        <input type="text" name="nombre">
+      </label>
+      <span id="nombreError" class="error"></span>
+      <br>
+      <label>Intereses:</label>
+      <label><input type="checkbox" name="intereses" value="videojuegos"> Videojuegos</label>
+      <label><input type="checkbox" name="intereses" value="deporte"> Deporte</label>
+      <label><input type="checkbox" name="intereses" value="lectura"> Lectura</label>
+      <span id="interesesError" class="error"></span>
+      <br>
+      <label>Foto:
+        <input type="file" name="foto" accept="image/*">
+      </label>
+      <span id="fotoError" class="error"></span>
+      <br>
+      <button type="submit">Crear Perfil</button>
+    </form>
 
+    <div id="contenedor"></div>
+    
+    <script>
+      const formulario = document.getElementById('formulario');
+      const contenedor = document.getElementById('contenedor');
+
+      function validarNombre(nombre) {
+        if (nombre.trim() === "") {
+          document.getElementById('nombreError').textContent = 'El nombre no puede estar vacío';
+          return false;
+        }
+        document.getElementById('nombreError').textContent = '';
+        return true;
+      }
+
+      function validarIntereses(intereses) {
+        if (intereses.length === 0) {
+          document.getElementById('interesesError').textContent = 'Debes seleccionar al menos 1 interés';
+          return false;
+        }
+        document.getElementById('interesesError').textContent = '';
+        return true;
+      }
+
+      function validarFoto(foto) {
+        if (!foto || !foto.type || !foto.type.startsWith('image/')) {
+          document.getElementById('fotoError').textContent = 'Debes seleccionar una imagen';
+          return false;
+        }
+        document.getElementById('fotoError').textContent = '';
+        return true;
+      }
+
+      function crearTarjeta(perfil) {
+        const div = document.createElement('div');
+        div.className = 'tarjeta';
+
+        const nombre = document.createElement('h3');
+        nombre.textContent = perfil.nombre;
+        div.appendChild(nombre);
+
+        const imagen = document.createElement('img');
+        imagen.src = perfil.foto;
+        imagen.alt = `imagen de ${perfil.nombre}`;
+        div.appendChild(imagen);
+
+        const interesesTitulo = document.createElement('h4');
+        interesesTitulo.textContent = 'Intereses';
+        div.appendChild(interesesTitulo);
+
+        const ul = document.createElement('ul');
+        perfil.intereses.forEach(int => {
+          const li = document.createElement('li');
+          li.textContent = int;
+          ul.appendChild(li);
+        });
+        div.appendChild(ul);
+
+        const btnLike = document.createElement('button');
+        btnLike.textContent = "Like";
+        btnLike.onclick = function(e) { e.preventDefault(); alert('¡Te gusta este perfil!'); };
+
+        const btnDislike = document.createElement('button');
+        btnDislike.textContent = "Dislike";
+        btnDislike.onclick = function(e) { e.preventDefault(); alert('No te gusta este perfil...'); };
+
+        div.appendChild(btnLike);
+        div.appendChild(btnDislike);
+
+        return div;
+      }
+
+      formulario.addEventListener('submit', function(event) {
+        event.preventDefault();
+        const formData = new FormData(formulario);
+
+        const nombre = formData.get('nombre');
+        const intereses = formData.getAll('intereses');
+        const foto = formData.get('foto');
+
+        let ok = true;
+        ok = validarNombre(nombre) && ok;
+        ok = validarIntereses(intereses) && ok;
+        ok = validarFoto(foto) && ok;
+        if (!ok) return;
+
+        const fotoURL = URL.createObjectURL(foto);
+        const perfil = { nombre: nombre, intereses: intereses, foto: fotoURL };
+        const tarjeta = crearTarjeta(perfil);
+        contenedor.appendChild(tarjeta);
+
+        formulario.reset();
+      });
+    </script>
 </body>
 </html>
