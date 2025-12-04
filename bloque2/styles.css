@@ -1,0 +1,259 @@
+body {
+    background: #f7f7fa;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    text-align: center;
+    background: #5a80e8;
+    margin: 0 0 24px 0;
+    color: #fff;
+    padding: 16px 0 8px;
+    box-shadow: 0 3px 10px #dde3f3;
+    letter-spacing: 1px;
+    font-size: 1.5rem;
+}
+
+.main-layout {
+    max-width: 950px;
+    margin: 32px auto 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 28px;
+    justify-content: center;
+}
+
+@media (max-width:800px) {
+    .main-layout {
+        flex-direction: column;
+        gap: 20px;
+        max-width: 97vw;
+    }
+}
+
+#side-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 20px;
+    min-width: 0;
+}
+
+@media (max-width:800px) {
+    #side-wrapper {
+        flex-direction: column;
+        gap: 18px;
+    }
+}
+
+#formulario {
+    background: #fff;
+    width: 300px;
+    min-width: 0;
+    margin: 0;
+    padding: 18px 14px 24px 14px;
+    border-radius: 11px;
+    box-shadow: 0 3px 12px #e1e4f7;
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+}
+
+#formulario label {
+    color: #1a225c;
+    font-weight: 500;
+    font-size: .99rem;
+    margin: 7px 0 2px;
+    display: block;
+}
+
+#formulario input[type="text"],
+#formulario input[type="file"] {
+    padding: 7px 8px;
+    border: 1px solid #c9caee;
+    border-radius: 5px;
+    width: 100%;
+    font-size: .97rem;
+    background: #f7f8fc;
+    margin-bottom: 6px;
+    box-sizing: border-box;
+    transition: border .2s;
+}
+
+#formulario input[type="text"]:focus {
+    border: 1px solid #5a80e8;
+    background: #eef2ff;
+    outline: none;
+}
+
+#formulario input[type="checkbox"] {
+    margin-right: 5px;
+    accent-color: #395ad7;
+    transform: scale(1.06);
+}
+
+#formulario button[type="submit"] {
+    background: #5a80e8;
+    color: #fff;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 0;
+    margin-top: 8px;
+    cursor: pointer;
+    transition: background .2s, transform .15s;
+    font-weight: bold;
+}
+
+#formulario button[type="submit"]:hover {
+    background: #3f54ab;
+    transform: translateY(-1px) scale(1.02);
+}
+
+.error {
+    color: #ff1a38;
+    font-size: .93rem;
+    min-height: 20px;
+    display: block;
+    margin-left: 2px;
+}
+
+#toggle-perfiles-btn {
+    display: block;
+    margin: 0 0 17px 0;
+    padding: 8px 22px;
+    background: #5a80e8;
+    color: #fff;
+    font-size: .97rem;
+    font-weight: 600;
+    border-radius: 7px;
+    border: none;
+    letter-spacing: .6px;
+    box-shadow: 0 2px 10px #dee7fd;
+    cursor: pointer;
+    transition: background 0.18s, color 0.14s;
+}
+
+#toggle-perfiles-btn:hover {
+    background: #3f54ab;
+    color: #e0e6ff;
+}
+
+#contenedor {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    min-height: 70px;
+    justify-content: flex-start;
+    align-items: flex-start;
+    transition: min-height 0.3s;
+    max-width: 600px;
+}
+
+/* Tarjeta simple */
+.tarjeta {
+    border: 1.2px solid #3b50a2;
+    margin: 0;
+    padding: 15px 9px;
+    width: 200px;
+    min-width: 170px;
+    border-radius: 8px;
+    background: #f0f3fc;
+    box-shadow: 0 1px 8px #e2e6fa;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    text-align: center;
+}
+
+.tarjeta h3 {
+    margin: 2px 0 8px 0;
+    color: #264aad;
+    font-size: 1.05rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.tarjeta img {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+    border: 2px solid #5a80e8;
+    background: #fff;
+    object-fit: cover;
+    box-shadow: 0 1px 4px #c5cbeb;
+}
+
+.tarjeta ul {
+    margin: 6px 0 0 0;
+    padding: 0;
+    list-style: disc inside;
+    text-align: left;
+}
+
+.tarjeta ul li {
+    color: #37427e;
+    font-size: .96rem;
+    margin-bottom: 2px;
+    padding-left: 4px;
+}
+
+/* Fade animaciones */
+.fade-out {
+    animation: fadeOutAnim 0.45s forwards;
+}
+
+.fade-in {
+    animation: fadeInAnim 0.5s forwards;
+}
+
+@keyframes fadeOutAnim {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+        display: none;
+    }
+}
+
+@keyframes fadeInAnim {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@media (max-width:600px) {
+    .main-layout {
+        flex-direction: column;
+        align-items: stretch;
+        max-width: 100vw;
+    }
+
+    #formulario {
+        width: 97vw;
+        min-width: unset;
+        border-radius: 0;
+        padding-left: 4vw;
+        padding-right: 4vw;
+    }
+
+    #side-wrapper {
+        flex-direction: column;
+    }
+
+    #contenedor {
+        max-width: unset;
+        justify-content: center;
+    }
+}

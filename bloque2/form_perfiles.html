@@ -1,131 +1,127 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
+
+  <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>Formulario de Perfiles</title>
-    <style>
-      .error { color: red; }
-      .tarjeta { border:1px solid #ccc; margin:10px 0; padding:10px; max-width:300px; }
-      .tarjeta img { max-width:100px; max-height:100px; display:block; margin-bottom:10px;}
-    </style>
-</head>
-<body>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+
+  <body>
     <h1>Formulario de Perfiles</h1>
 
-    <form id="formulario">
-      <label>Nombre:
-        <input type="text" name="nombre">
-      </label>
-      <span id="nombreError" class="error"></span>
-      <br>
-      <label>Intereses:</label>
-      <label><input type="checkbox" name="intereses" value="videojuegos"> Videojuegos</label>
-      <label><input type="checkbox" name="intereses" value="deporte"> Deporte</label>
-      <label><input type="checkbox" name="intereses" value="lectura"> Lectura</label>
-      <span id="interesesError" class="error"></span>
-      <br>
-      <label>Foto:
-        <input type="file" name="foto" accept="image/*">
-      </label>
-      <span id="fotoError" class="error"></span>
-      <br>
-      <button type="submit">Crear Perfil</button>
-    </form>
+    <div class="main-layout">
+      <div id="side-wrapper">
+        <form id="formulario" autocomplete="off">
+          <label for="nombre">Nombre:</label>
+          <input type="text" name="nombre" />
+          <span id="nombreError" class="error"></span>
 
-    <div id="contenedor"></div>
-    
+          <div class="intereses-label">Intereses</div>
+          <label><input type="checkbox" name="intereses" value="Videojuegos" />Videojuegos</label>
+          <label><input type="checkbox" name="intereses" value="Deportes" />Deportes</label>
+          <label><input type="checkbox" name="intereses" value="Lectura" />Lectura</label>
+          <span id="interesesError" class="error"></span>
+
+          <label for="foto">Foto:</label>
+          <input type="file" name="foto" accept="image/*" />
+          <span id="fotoError" class="error"></span>
+
+          <button type="submit">Crear perfil</button>
+        </form>
+        
+        <div>
+          <button id="toggle-perfiles-btn">Ocultar perfiles</button>
+        </div>
+
+      </div>
+
+      <div id="contenedor"></div>
+      
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     <script>
-      const formulario = document.getElementById('formulario');
-      const contenedor = document.getElementById('contenedor');
+      const $formulario = $('#formulario');
+      const $contenedor = $('#contenedor');
+      const $togglePerfilesBtn = $('#toggle-perfiles-btn');
 
       function validarNombre(nombre) {
-        if (nombre.trim() === "") {
-          document.getElementById('nombreError').textContent = 'El nombre no puede estar vacío';
+        if (!nombre.trim()) {
+          $('#nombreError').text('El nombre no puede estar vacío');
           return false;
         }
-        document.getElementById('nombreError').textContent = '';
+        $('#nombreError').text('');
         return true;
       }
 
       function validarIntereses(intereses) {
-        if (intereses.length === 0) {
-          document.getElementById('interesesError').textContent = 'Debes seleccionar al menos 1 interés';
+        if (!intereses.length) {
+          $('#interesesError').text('Selecciona al menos 1 interés');
           return false;
         }
-        document.getElementById('interesesError').textContent = '';
+        $('#interesesError').text('');
         return true;
       }
 
       function validarFoto(foto) {
         if (!foto || !foto.type || !foto.type.startsWith('image/')) {
-          document.getElementById('fotoError').textContent = 'Debes seleccionar una imagen';
+          $('#fotoError').text('Selecciona una imagen');
           return false;
         }
-        document.getElementById('fotoError').textContent = '';
+        $('#fotoError').text('');
         return true;
       }
 
       function crearTarjeta(perfil) {
-        const div = document.createElement('div');
-        div.className = 'tarjeta';
-
-        const nombre = document.createElement('h3');
-        nombre.textContent = perfil.nombre;
-        div.appendChild(nombre);
-
-        const imagen = document.createElement('img');
-        imagen.src = perfil.foto;
-        imagen.alt = `imagen de ${perfil.nombre}`;
-        div.appendChild(imagen);
-
-        const interesesTitulo = document.createElement('h4');
-        interesesTitulo.textContent = 'Intereses';
-        div.appendChild(interesesTitulo);
-
-        const ul = document.createElement('ul');
-        perfil.intereses.forEach(int => {
-          const li = document.createElement('li');
-          li.textContent = int;
-          ul.appendChild(li);
-        });
-        div.appendChild(ul);
-
-        const btnLike = document.createElement('button');
-        btnLike.textContent = "Like";
-        btnLike.onclick = function(e) { e.preventDefault(); alert('¡Te gusta este perfil!'); };
-
-        const btnDislike = document.createElement('button');
-        btnDislike.textContent = "Dislike";
-        btnDislike.onclick = function(e) { e.preventDefault(); alert('No te gusta este perfil...'); };
-
-        div.appendChild(btnLike);
-        div.appendChild(btnDislike);
-
-        return div;
+        const $d = $('<div>').addClass('tarjeta');
+        $d.append($('<img>').attr({ src: perfil.foto, alt: `imagen de ${perfil.nombre}` }));
+        $d.append($('<h3>').text(perfil.nombre));
+        const $ul = $('<ul>');
+        perfil.intereses.forEach(i => $ul.append($('<li>').text(i)));
+        $d.append($ul);
+        return $d[0];
       }
 
-      formulario.addEventListener('submit', function(event) {
-        event.preventDefault();
-        const formData = new FormData(formulario);
+      $formulario.on('submit', function (e) {
+        e.preventDefault();
+        const f = new FormData($formulario[0]);
+        const nombre = f.get('nombre');
+        const intereses = f.getAll('intereses');
+        const foto = f.get('foto');
 
-        const nombre = formData.get('nombre');
-        const intereses = formData.getAll('intereses');
-        const foto = formData.get('foto');
-
-        let ok = true;
-        ok = validarNombre(nombre) && ok;
-        ok = validarIntereses(intereses) && ok;
-        ok = validarFoto(foto) && ok;
+        let ok = validarNombre(nombre) && validarIntereses(intereses) && validarFoto(foto);
         if (!ok) return;
 
-        const fotoURL = URL.createObjectURL(foto);
-        const perfil = { nombre: nombre, intereses: intereses, foto: fotoURL };
-        const tarjeta = crearTarjeta(perfil);
-        contenedor.appendChild(tarjeta);
+        const perfil = { nombre: nombre, intereses: intereses, foto: URL.createObjectURL(foto) };
+        $contenedor.append(crearTarjeta(perfil));
+        $formulario[0].reset();
+      });
 
-        formulario.reset();
+      // Fade In/Fade Out para mostrar/ocultar perfiles
+      let contenedorVisible = true;
+      $togglePerfilesBtn.on('click', function () {
+        if (contenedorVisible) {
+          $contenedor
+            .addClass('fade-out')
+            .one('animationend', function () {
+              $contenedor.hide().removeClass('fade-out');
+              $togglePerfilesBtn.text('Mostrar perfiles');
+              contenedorVisible = false;
+            });
+        } else {
+          $contenedor
+            .show()
+            .addClass('fade-in')
+            .one('animationend', function () {
+              $contenedor.removeClass('fade-in');
+            });
+          $togglePerfilesBtn.text('Ocultar perfiles');
+          contenedorVisible = true;
+        }
       });
     </script>
-</body>
+  </body>
+
 </html>
